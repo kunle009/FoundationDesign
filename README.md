@@ -58,7 +58,7 @@ The creation of a `PadFoundation` instance involves the input of the following:
 6. The position of the column along y direction from the origin in mm
 7. The soil bearing capacity in kN/mm2
 
-        from FoundationDesign import PadFoundation,padFoundationDesign
+        from foundationdesign import PadFoundation,padFoundationDesign
         fdn = PadFoundation(foundation_length=2500,foundation_width=2500,column_length=400,column_width=400,col_pos_xdir=1250,col_pos_ydir=1250,soil_bearing_capacity=200)
 
 ## Assigning Foundation Loads
