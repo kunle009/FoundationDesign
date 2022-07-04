@@ -1,0 +1,4 @@
+indeterminatebeam==2.2.0
+numpy==1.22.3
+plotly==5.6.0
+scipy==1.8.0

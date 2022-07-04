@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+FoundationDesign.egg-info/PKG-INFO
+FoundationDesign.egg-info/SOURCES.txt
+FoundationDesign.egg-info/dependency_links.txt
+FoundationDesign.egg-info/requires.txt
+FoundationDesign.egg-info/top_level.txt
