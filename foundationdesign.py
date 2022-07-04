@@ -8,7 +8,7 @@ from indeterminatebeam import Beam,Support,TrapezoidalLoadV,DistributedLoadV
 
 #Local Application Imports
 from datavalidation import assert_input_limit,assert_number,assert_strictly_positive_number,assert_maximum_input_limit,assert_input_range
-from concretedesign import bending_reinforcement,minimum_steel,maximum_steel,shear_stress_check_1d,column_punching_coefficient_k,reinforcement_provision
+from concretedesignfunc import bending_reinforcement,minimum_steel,maximum_steel,shear_stress_check_1d,column_punching_coefficient_k,reinforcement_provision
 
 
 
@@ -1360,59 +1360,3 @@ class padFoundationDesign(PadFoundation):
             return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
         elif self.__punching_shear()[1] < ved_design:
             return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
-
-    def test(self):
-        average_depth = np.average([self.dy,self.dx])
-        return self.beta
-
-
-
-fdn = PadFoundation(3600, 3500, 230, 450,1700,1900,150)
-fdn.foundation_loads(450, 800, 18, 24)
-fdn.column_axial_loads(500, 200, 10)
-fdn.column_horizontal_loads_xdir(100, 20, 44)
-fdn.column_horizontal_loads_ydir(54, 34, 52)
-fdn.column_moments_xdir(78, 23, 10)
-fdn.column_moments_ydir(35, -7, 7)
-#fdn.plot_geometry()
-#print(fdn.foundation_loads(650, 800, 18, 24))
-#print(fdn.total_moments_X_direction_sls())
-#print(fdn.total_moments_Y_direction_sls())
-#print(fdn.eccentricity_X_direction_sls())
-#print(fdn.eccentricity_Y_direction_sls())
-#print(fdn.pad_base_pressures_sls())
-#print(fdn.bearing_pressure_check_sls())
-#fdn.plot_base_pressures_sls()
-#print(fdn.total_force_X_dir_uls())
-#print(fdn.total_force_Y_dir_uls())
-#print(fdn.total_force_Z_dir_uls())
-#print(fdn.total_moments_X_direction_uls())
-#print(fdn.total_moments_Y_direction_uls())
-#print(fdn.eccentricity_X_direction_uls())
-#print(fdn.eccentricity_Y_direction_uls())
-#print(fdn.pad_base_pressures_uls())
-#print(fdn.base_pressure_rate_of_change_X())
-#print(fdn.base_pressure_rate_of_change_Y())
-fdn_design = padFoundationDesign(fdn,25,460,30,16,12)
-#fdn_design.plot_foundation_loading_X()
-#fdn_design.plot_foundation_loading_Y()
-#fdn_design.plot_bending_moment_X()
-#fdn_design.plot_bending_moment_Y()
-#fdn_design.plot_shear_force_X()
-#fdn_design.plot_shear_force_Y()
-#print(fdn_design.get_design_moment_X())
-#print(fdn_design.get_design_moment_Y())
-#print(fdn_design.get_design_shear_force_X())
-#print(fdn_design.get_design_shear_force_Y())
-#print(fdn_design.area_of_steel_reqd_X_dir())
-#print(fdn_design.reinforcement_provision_flexure_X_dir())
-#print(fdn_design.area_of_steel_reqd_Y_dir())
-#print(fdn_design.reinforcement_provision_flexure_Y_dir())
-#print(fdn_design.tranverse_shear_check_Xdir())
-#print(fdn_design.tranverse_shear_check_Ydir())
-#print(fdn_design.punching_shear()) #private method
-#fdn_design.update_punching_shear_stress_factor(1.5)
-#print(fdn_design.punching_shear_column_face())
-#print(fdn_design.punching_shear_check_1d())
-#print(fdn_design.punching_shear_check_2d())
-#print(fdn_design.test())'''
