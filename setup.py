@@ -1,8 +1,11 @@
 import setuptools
 import os
 
+
+#store readme.md files
 with open("README.md", "r") as fh:
     long_description = fh.read()
+#read the requirements
 with open("requirements.txt", "r") as fh:
     requirements = [line.strip() for line in fh]
 
