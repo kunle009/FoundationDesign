@@ -86,8 +86,10 @@ The creation of this object includes the following:
 2. Characteristic compressive cylinder strength in N/mm2. Accepted range of values [16,20,25,30,32,35,37,40,45,55]
 3. Characteristic yield strength of reinforcement in N/mm2
 4. Nominal cover to foundation in mm
-5. Assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
-6. Assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
+5. Initial assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
+   used to calculate depth to tension reinforcement along the x direction
+6. Initial assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
+    used to calculate depth to tension reinforcement along the y direction
 
         fdn_design = padFoundationDesign(fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16)
 
