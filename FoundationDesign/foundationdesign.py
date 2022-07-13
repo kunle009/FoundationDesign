@@ -7,14 +7,14 @@ import plotly.graph_objs as go
 from indeterminatebeam import Beam, Support, TrapezoidalLoadV, DistributedLoadV
 
 # Local Application Imports
-from datavalidation import (
+from foundationdesign.datavalidation import (
     assert_input_limit,
     assert_number,
     assert_strictly_positive_number,
     assert_maximum_input_limit,
     assert_input_range,
 )
-from concretedesignfunc import (
+from foundationdesign.concretedesignfunc import (
     bending_reinforcement,
     minimum_steel,
     shear_stress_check_1d,
