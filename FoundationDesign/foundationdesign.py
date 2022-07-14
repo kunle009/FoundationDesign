@@ -1187,7 +1187,7 @@ class padFoundationDesign(PadFoundation):
     punching_shear_check_2d()
         Calculates the punching shear at a distance 2d from the column face and check for its adequacy
     """
-
+    characteristics_friction_angle = 20
     def __init__(
         self,
         PadFoundation,
@@ -2050,7 +2050,7 @@ class padFoundationDesign(PadFoundation):
     def sliding_resistance_check(self):
         """
         Calculates the sliding resistance of the foundation due to horizontal loads based on equations contained in section 6.3 of the
-        Eurocode 1.
+        Eurocode 7.
 
         Returns
         -------
