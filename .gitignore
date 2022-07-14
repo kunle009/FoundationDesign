@@ -1,3 +1,7 @@
 __pycache__
 FoundationDesign/__pycache__
 .pyc
+FoundationDesign.egg-info/PKG-INFO
+FoundationDesign.egg-info/SOURCES.txt
+FoundationDesign.egg-info/top_level.txt
+FoundationDesign/foundationdesign.py
