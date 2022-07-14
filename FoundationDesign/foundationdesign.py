@@ -2046,3 +2046,51 @@ class padFoundationDesign(PadFoundation):
             return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
         elif self.__punching_shear()[1] < ved_design:
             return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+
+    def sliding_resistance_check(self):
+        """
+        Calculates the sliding resistance of the foundation due to horizontal loads based on equations contained in section 6.3 of the
+        Eurocode 1.
+
+        Returns
+        -------
+        sliding_resistance : float
+            The allowable sliding resistance of the foundation in kN
+        fdn_horizontal_loads : float
+            The actual horizontal loads acting on the foundation calculated in accordance to section 6.5.3 in kN
+        """
+        force_x_direction = (
+            self.PadFoundation.uls_strength_factor_permanent
+            * self.PadFoundation.permanent_horizontal_load_xdir
+            + self.PadFoundation.uls_strength_factor_imposed
+            * self.PadFoundation.imposed_horizontal_load_xdir
+            + self.PadFoundation.uls_strength_factor_imposed
+            * self.PadFoundation.wind_horizontal_load_xdir
+        )
+        force_y_direction = (
+            self.PadFoundation.uls_strength_factor_permanent
+            * self.PadFoundation.permanent_horizontal_load_ydir
+            + self.PadFoundation.uls_strength_factor_imposed
+            * self.PadFoundation.imposed_horizontal_load_ydir
+            + self.PadFoundation.uls_strength_factor_imposed
+            * self.PadFoundation.wind_horizontal_load_ydir
+        )
+        fdn_loads = self.foundation_loads(
+            self.PadFoundation.foundation_thickness * 1000,
+            self.PadFoundation.soil_depth_abv_foundation * 1000,
+            self.PadFoundation.soil_unit_weight,
+            self.PadFoundation.concrete_unit_weight,
+        )
+        force_z_direction = (
+            self.PadFoundation.area_of_foundation() * (fdn_loads[0] + fdn_loads[1])
+        ) + self.PadFoundation.permanent_axial_load
+        fdn_horizontal_force = (
+            (force_x_direction**2) + (force_y_direction**2)
+        ) ** 0.5
+        x = math.tan(math.radians(20)) / 1
+        design_friction_angle = math.atan(x)
+        sliding_resistance = force_z_direction * math.tan(design_friction_angle)
+        if sliding_resistance > fdn_horizontal_force:
+            return f" The allowable sliding resistance {round(sliding_resistance)}kN is greater than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - PASS!!!"
+        elif sliding_resistance < fdn_horizontal_force:
+            return f" The allowable sliding resistance {round(sliding_resistance)}kN is lesser than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - FAIL!!!"
