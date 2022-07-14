@@ -6,3 +6,7 @@ FoundationDesign.egg-info/SOURCES.txt
 FoundationDesign.egg-info/dependency_links.txt
 FoundationDesign.egg-info/requires.txt
 FoundationDesign.egg-info/top_level.txt
+foundationdesign/__init__.py
+foundationdesign/concretedesignfunc.py
+foundationdesign/datavalidation.py
+foundationdesign/foundationdesign.py

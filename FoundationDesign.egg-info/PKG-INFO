@@ -74,7 +74,7 @@ The creation of a `PadFoundation` instance involves the input of the following:
 6. The position of the column along y direction from the origin in mm
 7. The soil bearing capacity in kN/mm2
 
-        from FoundationDesign import PadFoundation,padFoundationDesign
+        from foundationdesign import PadFoundation,padFoundationDesign
         fdn = PadFoundation(foundation_length=2500,foundation_width=2500,column_length=400,column_width=400,col_pos_xdir=1250,col_pos_ydir=1250,soil_bearing_capacity=200)
 
 ## Assigning Foundation Loads
@@ -102,8 +102,10 @@ The creation of this object includes the following:
 2. Characteristic compressive cylinder strength in N/mm2. Accepted range of values [16,20,25,30,32,35,37,40,45,55]
 3. Characteristic yield strength of reinforcement in N/mm2
 4. Nominal cover to foundation in mm
-5. Assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
-6. Assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
+5. Initial assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
+   used to calculate depth to tension reinforcement along the x direction
+6. Initial assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
+    used to calculate depth to tension reinforcement along the y direction
 
         fdn_design = padFoundationDesign(fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16)
 
@@ -116,9 +118,9 @@ bending moment values at the critical location along the Foundation length or wi
     fdn_design.plot_bending_moment_X()
     fdn_design.plot_shear_force_X()
 This outputs the bending moment plot with the design bending moment shown at the face of the column
-![Image](bending_moment.png)
+![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/bending_moment.png?raw=true)
 The shear force plot is also displayed with critical shearforce showing at 1d from column the face
-![Image](shear_force.jpg)
+![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/shear_force.jpg?raw=true)
 
 ## Future Works
 
