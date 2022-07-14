@@ -1187,7 +1187,9 @@ class padFoundationDesign(PadFoundation):
     punching_shear_check_2d()
         Calculates the punching shear at a distance 2d from the column face and check for its adequacy
     """
+
     characteristics_friction_angle = 20
+
     def __init__(
         self,
         PadFoundation,
