@@ -614,6 +614,66 @@ class PadFoundation:
         )
         return round(1000 * ey)
 
+    def minimum_area_required(self):
+        """
+        Calculates the minimum area of base required.
+
+        Returns
+        -------
+        float
+            Minimum Area required in m2.
+        """
+
+        for x, y in zip(np.arange(1, 20.5, 0.05), np.arange(1, 20.5, 0.05)):
+            x = np.round(x, 3)
+            y = np.round(y, 3)
+            fdn_loads = self.foundation_loads(
+                self.foundation_thickness * 1000,
+                self.soil_depth_abv_foundation * 1000,
+                self.soil_unit_weight,
+                self.concrete_unit_weight,
+            )
+            total_force_Z_direction = (
+                self.permanent_axial_load
+                + self.imposed_axial_load
+                + self.wind_axial_load
+                + ((x * x) * (fdn_loads[0] + fdn_loads[1]))
+            )
+            Mdx = (
+                (x * y * (fdn_loads[0] + fdn_loads[1]) * (x / 2))
+                + (self.permanent_axial_load * x / 2)
+                + self.permanent_moment_xdir
+                + (self.permanent_horizontal_load_xdir * self.foundation_thickness)
+                + (self.imposed_axial_load * x / 2)
+                + self.imposed_moment_xdir
+                + (self.imposed_horizontal_load_xdir * self.foundation_thickness)
+                + (self.wind_axial_load * x / 2)
+                + self.wind_moments_xdir
+                + (self.wind_horizontal_load_xdir * self.foundation_thickness)
+            )
+            Mdy = (
+                (x * y * (fdn_loads[0] + fdn_loads[1]) * y / 2)
+                + self.permanent_axial_load * y / 2
+                + self.permanent_moment_ydir
+                + self.permanent_horizontal_load_ydir * self.foundation_thickness
+                + self.imposed_axial_load * y / 2
+                + self.imposed_moment_ydir
+                + self.imposed_horizontal_load_ydir * self.foundation_thickness
+                + self.wind_axial_load * y / 2
+                + self.wind_moments_ydir
+                + self.wind_horizontal_load_ydir * self.foundation_thickness
+            )
+            ex = Mdx / total_force_Z_direction - x / 2
+            ey = Mdy / total_force_Z_direction - y / 2
+            lhs = total_force_Z_direction * (
+                (1 + ((6 * ex) / x) + ((6 * ey) / y)) / (x * y)
+            )
+            lower = self.soil_bearing_capacity - 10
+            if round(lhs) in range(lower, self.soil_bearing_capacity):
+                break
+        minimum_area = x * y
+        return round(minimum_area, 3)
+
     def pad_base_pressures_sls(self):
         """
         Calculates the pad foundation pressures at the four corners of the foundation using the serviceability limit state
@@ -1331,6 +1391,8 @@ class padFoundationDesign(PadFoundation):
         """
         foundationx = self.__loading_diagrams_X_dir()
         fig = foundationx.plot_beam_diagram()
+        fig.layout.title.text = "Foundation schematic (length)"
+        fig.layout.xaxis.title.text = "Foundation length"
         fig.show()
 
     def plot_foundation_loading_Y(self):
@@ -1339,8 +1401,10 @@ class padFoundationDesign(PadFoundation):
         own load acting as a udl over the foundation width and a soil pressure acting underneath the foundation
         along the foundation width.
         """
-        foundationx = self.__loading_diagrams_Y_dir()
-        fig = foundationx.plot_beam_diagram()
+        foundationy = self.__loading_diagrams_Y_dir()
+        fig = foundationy.plot_beam_diagram()
+        fig.layout.title.text = "Foundation schematic (width)"
+        fig.layout.xaxis.title.text = "Foundation width"
         fig.show()
 
     def plot_bending_moment_X(self):
@@ -1351,7 +1415,8 @@ class padFoundationDesign(PadFoundation):
         foundation.analyse()
         x = self.PadFoundation.col_pos_xdir + self.PadFoundation.column_length / 2
         foundation.add_query_points(x)
-        fig1 = foundation.plot_bending_moment()
+        fig1 = foundation.plot_bending_moment(reverse_y=True)
+        fig1.layout.xaxis.title.text = "Foundation length"
         fig1.show()
 
     def plot_bending_moment_Y(self):
@@ -1360,7 +1425,8 @@ class padFoundationDesign(PadFoundation):
         foundation.analyse()
         y = self.PadFoundation.col_pos_ydir + self.PadFoundation.column_width / 2
         foundation.add_query_points(y)
-        fig2 = foundation.plot_bending_moment()
+        fig2 = foundation.plot_bending_moment(reverse_y=True)
+        fig2.layout.xaxis.title.text = "Foundation width"
         fig2.show()
 
     def plot_shear_force_X(self):
@@ -1380,6 +1446,7 @@ class padFoundationDesign(PadFoundation):
         )
         foundation.add_query_points(x1, x2)
         fig1 = foundation.plot_shear_force()
+        fig1.layout.xaxis.title.text = "Foundation length"
         fig1.show()
 
     def plot_shear_force_Y(self):
@@ -1399,6 +1466,7 @@ class padFoundationDesign(PadFoundation):
         )
         foundation.add_query_points(y1, y2)
         fig1 = foundation.plot_shear_force()
+        fig1.layout.xaxis.title.text = "Foundation width"
         fig1.show()
 
     def get_design_moment_X(self):
