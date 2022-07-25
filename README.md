@@ -37,6 +37,7 @@ A typical use case of the pad foundation class contained in the ```FoundationDes
 - Assign `column_horizontal_loads_xdir` to the `PadFoundation`
 - Assign `column_moments_xdir` to the `PadFoundation`
 - Assign `column_moments_ydir` to the `PadFoundation`
+- Check the `minimum_area_required` of the `PadFoundation`
 - Check the `bearing_pressure_check_sls` on the `PadFoundation`
 - Create a `PadFoundationDesign` object to help design the foundation
 - Plot the Bending moment and shear force diagrams
