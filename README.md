@@ -103,7 +103,7 @@ bending moment values at the critical location along the Foundation length or wi
     fdn_design.plot_bending_moment_X()
     fdn_design.plot_shear_force_X()
 This outputs the bending moment plot with the design bending moment shown at the face of the column
-![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/bending_moment.png?raw=true)
+![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/bending_moment1.png?raw=true)
 The shear force plot is also displayed with critical shearforce showing at 1d from column the face
 ![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/shear_force.jpg?raw=true)
 
