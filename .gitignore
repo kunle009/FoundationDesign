@@ -11,3 +11,11 @@ FoundationDesign.egg-info/SOURCES.txt
 FoundationDesign.egg-info/PKG-INFO
 .vs/FoundationDesign/v17/.suo
 .vs/slnx.sqlite
+build/lib/FoundationDesign/foundationdesign.py
+build/lib/FoundationDesign/datavalidation.py
+build/lib/FoundationDesign/concretedesignfunc.py
+build/lib/FoundationDesign/__init__.py
+FoundationDesign.egg-info/PKG-INFO
+FoundationDesign.egg-info/PKG-INFO
+FoundationDesign.egg-info/SOURCES.txt
+FoundationDesign.egg-info/top_level.txt
