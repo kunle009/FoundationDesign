@@ -1868,7 +1868,7 @@ class padFoundationDesign(PadFoundation):
         ) + (
             self.PadFoundation.uls_strength_factor_imposed
             * self.PadFoundation.imposed_axial_load
-        )
+        ) + (self.PadFoundation.uls_strength_factor_imposed * self.PadFoundation.wind_axial_load)
         design_punching_shear_force = (
             column_axial_load
             + (
@@ -2027,7 +2027,7 @@ class padFoundationDesign(PadFoundation):
         ) + (
             self.PadFoundation.uls_strength_factor_imposed
             * self.PadFoundation.imposed_axial_load
-        )
+        ) + (self.PadFoundation.uls_strength_factor_imposed * self.PadFoundation.wind_axial_load)
         design_punching_shear_force = (
             column_axial_load
             + (
