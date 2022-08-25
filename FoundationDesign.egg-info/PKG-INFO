@@ -53,6 +53,7 @@ A typical use case of the pad foundation class contained in the ```FoundationDes
 - Assign `column_horizontal_loads_xdir` to the `PadFoundation`
 - Assign `column_moments_xdir` to the `PadFoundation`
 - Assign `column_moments_ydir` to the `PadFoundation`
+- Check the `minimum_area_required` of the `PadFoundation`
 - Check the `bearing_pressure_check_sls` on the `PadFoundation`
 - Create a `PadFoundationDesign` object to help design the foundation
 - Plot the Bending moment and shear force diagrams
@@ -118,7 +119,7 @@ bending moment values at the critical location along the Foundation length or wi
     fdn_design.plot_bending_moment_X()
     fdn_design.plot_shear_force_X()
 This outputs the bending moment plot with the design bending moment shown at the face of the column
-![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/bending_moment.png?raw=true)
+![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/bending_moment1.png?raw=true)
 The shear force plot is also displayed with critical shearforce showing at 1d from column the face
 ![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/shear_force.jpg?raw=true)
 
