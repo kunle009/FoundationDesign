@@ -27,7 +27,8 @@ class PadFoundation:
     """
     Represents a rectangular or square pad foundation that can take permanent,variable and wind loads.
 
-    This class serves as the main class that helps analyse the foundation to get the forces needed to design the foundation against.
+    This class serves as the main class that helps analyse the foundation to get the forces needed to design the 
+    foundation against.
 
     Attributes
     ----------
@@ -774,8 +775,6 @@ class PadFoundation:
         q2 = round(q2, 3)
         q3 = round(q3, 3)
         q4 = round(q4, 3)
-        minimum_pad_pressure = min(q1, q2, q3, q4)
-        maximum_pad_pressure = max(q1, q2, q3, q4)
         return q1, q2, q3, q4
 
     def bearing_pressure_check_sls(self):
