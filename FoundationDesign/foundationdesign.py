@@ -1,3 +1,7 @@
+"""
+Main module that contains the main class for Pad foundation analysis 
+and auxillary class for Pad foundation design.
+"""
 # Standard library imports
 import math
 
