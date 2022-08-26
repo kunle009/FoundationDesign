@@ -14,3 +14,7 @@ from FoundationDesign.concretedesignfunc import (
     column_punching_coefficient_k,
     reinforcement_provision,
 )
+from FoundationDesign.combinedfootingdesign import (
+    CombinedFootingAnalysis,
+    CombinedFootingDesign,
+)
