@@ -2,6 +2,7 @@ LICENSE
 README.md
 setup.py
 FoundationDesign/__init__.py
+FoundationDesign/combinedfootingdesign.py
 FoundationDesign/concretedesignfunc.py
 FoundationDesign/datavalidation.py
 FoundationDesign/foundationdesign.py
