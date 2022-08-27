@@ -29,7 +29,6 @@ from FoundationDesign.concretedesignfunc import (
 )
 
 
-
 class CombinedFootingAnalysis:
     """
     Represents a rectangular or square pad foundation that can take permanent,variable and wind
@@ -134,18 +133,18 @@ class CombinedFootingAnalysis:
         self.col_pos_ydir = foundation_width / 2
         self.column_1_geometry = []
         self.column_2_geometry = []
-        self.column_1_axial_loads = []
-        self.column_1_horizontal_loads_xdir = []
-        self.column_1_horizontal_loads_ydir = []
-        self.column_1_moments_xdir = []
-        self.column_1_moments_ydir = []
+        self.column_1_axial_loads = [0, 0, 0]
+        self.column_1_horizontal_loads_xdir = [0, 0, 0]
+        self.column_1_horizontal_loads_ydir = [0, 0, 0]
+        self.column_1_moments_xdir = [0, 0, 0]
+        self.column_1_moments_ydir = [0, 0, 0]
         self.column_1_geometry = []
         self.column_2_geometry = []
-        self.column_2_axial_loads = []
-        self.column_2_horizontal_loads_xdir = []
-        self.column_2_horizontal_loads_ydir = []
-        self.column_2_moments_xdir = []
-        self.column_2_moments_ydir = []
+        self.column_2_axial_loads = [0, 0, 0]
+        self.column_2_horizontal_loads_xdir = [0, 0, 0]
+        self.column_2_horizontal_loads_ydir = [0, 0, 0]
+        self.column_2_moments_xdir = [0, 0, 0]
+        self.column_2_moments_ydir = [0, 0, 0]
 
     def update_column_1_geometry(
         self,
@@ -163,10 +162,10 @@ class CombinedFootingAnalysis:
             Length of the column. The length of the column is along the x axis (default unit mm).
             Must be positive and should not be less than 100mm.
         column_width : float
-            Width of the column. The width of the column is along the y axis (default unit mm). 
+            Width of the column. The width of the column is along the y axis (default unit mm).
             Must be positive and should not be less than 100mm.
         col_pos_xdir : float
-            The position of the column along the length of the foundation in the x axis. This is 
+            The position of the column along the length of the foundation in the x axis. This is
             used to model eccentric foundations i.e a situation where the column is not placed
             centrally on the foundation. If the column is at the centre of the foundation then
             this value should be equal to the foundation length divided by two.
@@ -227,10 +226,10 @@ class CombinedFootingAnalysis:
             Must be positive and should not be less than 100mm
         col_pos_xdir : float
             The position of the column along the length of the foundation in the x axis.
-            This is used to model eccentric foundations i.e a situation where the column is not 
+            This is used to model eccentric foundations i.e a situation where the column is not
             placed centrally on the foundation. If the column is at the centre of the foundation
-            then this value should be equal to the foundation length divided by two. 
-            Else the distance should be specified. (default unit mm). This value should not be 
+            then this value should be equal to the foundation length divided by two.
+            Else the distance should be specified. (default unit mm). This value should not be
             greater than the foundation length.
         col_pos_ydir : float
             The position of the column along the width of the foundation in the y axis.
@@ -297,6 +296,7 @@ class CombinedFootingAnalysis:
         assert_number(imposed_axial_load, "Imposed Axial Loads")
         assert_number(wind_axial_load, "Wind Axial Loads")
 
+        self.column_1_axial_loads.clear()
         self.column_1_axial_loads.extend(
             (permanent_axial_load, imposed_axial_load, wind_axial_load)
         )
@@ -338,6 +338,7 @@ class CombinedFootingAnalysis:
         )
         assert_number(wind_horizontal_load_xdir, "Wind Horizontal loads in X direction")
 
+        self.column_1_horizontal_loads_xdir.clear()
         self.column_1_horizontal_loads_xdir.extend(
             (
                 permanent_horizontal_load_xdir,
@@ -383,6 +384,7 @@ class CombinedFootingAnalysis:
         )
         assert_number(wind_horizontal_load_ydir, "Wind Horizontal loads in Y direction")
 
+        self.column_1_horizontal_loads_ydir.clear()
         self.column_1_horizontal_loads_ydir.extend(
             (
                 permanent_horizontal_load_ydir,
@@ -404,15 +406,15 @@ class CombinedFootingAnalysis:
         Parameters
         ----------
         permanent_moment_xdir : float, optional
-            Represents permanent moments in the x direction acting about the y axis. 
+            Represents permanent moments in the x direction acting about the y axis.
             Positive moments act from left to right while negative moments acts from right to
             left (default unit = kNm), by default 0
         imposed_moment_xdir : float, optional
-            Represents imposed moments in the x direction acting about the y axis. 
-            Positive moments act from left to right while negative moments acts from right to 
+            Represents imposed moments in the x direction acting about the y axis.
+            Positive moments act from left to right while negative moments acts from right to
             left (default unit = kNm), by default 0
         wind_moments_xdir : float, optional
-            Represents wind moments in the x direction acting about the y axis. 
+            Represents wind moments in the x direction acting about the y axis.
             Positive moments act from left to right while negative moments acts from right to
             left (default unit = kNm), by default 0
         """
@@ -423,6 +425,8 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_xdir, "Permanent moments in X direction")
         assert_number(imposed_moment_xdir, "Imposed moments in X direction")
         assert_number(wind_moments_xdir, "Wind moments in X direction")
+        
+        self.column_1_moments_xdir.clear()
         self.column_1_moments_xdir.extend(
             (permanent_moment_xdir, imposed_moment_xdir, wind_moments_xdir)
         )
@@ -440,17 +444,17 @@ class CombinedFootingAnalysis:
         Parameters
         ----------
         permanent_moment_ydir : float, optional
-            Represents permanent moments in the y axis direction acting about the x axis. 
+            Represents permanent moments in the y axis direction acting about the x axis.
             Positive moments act from
-            bottom to top while negative moments acts from top to bottom (default unit = kNm)., 
+            bottom to top while negative moments acts from top to bottom (default unit = kNm).,
             by default 0
         imposed_moment_ydir : float, optional
-            Represents imposed moments in the y direction acting about the x axis. Positive moments act 
+            Represents imposed moments in the y direction acting about the x axis. Positive moments act
             from bottom to top while negative moments acts from top to bottom (default unit = kNm),
             by default 0
         wind_moments_ydir : float, optional
             Represents wind moments in the y direction acting about the x axis. Positive moments act from
-            bottom to top while negative moments acts from top to bottom (default unit = kNm), 
+            bottom to top while negative moments acts from top to bottom (default unit = kNm),
             by default 0
         """
         self.permanent_moment_ydir = permanent_moment_ydir
@@ -460,6 +464,8 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_ydir, "Permanent moments in Y direction")
         assert_number(imposed_moment_ydir, "Imposed moments in Y direction")
         assert_number(wind_moments_ydir, "Wind moments in Y direction")
+        
+        self.column_1_moments_ydir.clear()
         self.column_1_moments_ydir.extend(
             (permanent_moment_ydir, imposed_moment_ydir, wind_moments_ydir)
         )
@@ -492,7 +498,9 @@ class CombinedFootingAnalysis:
         assert_number(permanent_axial_load, "Permanent Axial Loads")
         assert_number(imposed_axial_load, "Imposed Axial Loads")
         assert_number(wind_axial_load, "Wind Axial Loads")
-
+        
+        
+        self.column_2_axial_loads.clear()
         self.column_2_axial_loads.extend(
             (permanent_axial_load, imposed_axial_load, wind_axial_load)
         )
@@ -504,7 +512,7 @@ class CombinedFootingAnalysis:
         wind_horizontal_load_xdir: float = 0,
     ):
         """
-        Updates the column horizontal loads for the second column along the X direction. 
+        Updates the column horizontal loads for the second column along the X direction.
         This comprises of permanent, imposed and wind horizontal loads.
 
         Parameters
@@ -533,7 +541,8 @@ class CombinedFootingAnalysis:
             imposed_horizontal_load_xdir, "Imposed Horizontal loads in X direction"
         )
         assert_number(wind_horizontal_load_xdir, "Wind Horizontal loads in X direction")
-
+        
+        self.column_2_horizontal_loads_xdir.clear()
         self.column_2_horizontal_loads_xdir.extend(
             (
                 permanent_horizontal_load_xdir,
@@ -549,7 +558,7 @@ class CombinedFootingAnalysis:
         wind_horizontal_load_ydir: float = 0,
     ):
         """
-        Updates the column horizontal loads for the second column along the Y direction. 
+        Updates the column horizontal loads for the second column along the Y direction.
         This comprises of permanent,imposed and wind horizontal loads.
 
         Parameters
@@ -579,6 +588,7 @@ class CombinedFootingAnalysis:
         )
         assert_number(wind_horizontal_load_ydir, "Wind Horizontal loads in Y direction")
 
+        self.column_2_horizontal_loads_ydir.clear()
         self.column_2_horizontal_loads_ydir.extend(
             (
                 permanent_horizontal_load_ydir,
@@ -600,7 +610,7 @@ class CombinedFootingAnalysis:
         Parameters
         ----------
         permanent_moment_xdir : float, optional
-            Represents permanent moments in the x direction acting about the y axis. 
+            Represents permanent moments in the x direction acting about the y axis.
             Positive moments act from left to right while negative moments acts from right to left
             (default unit = kNm), by default 0
         imposed_moment_xdir : float, optional
@@ -619,6 +629,8 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_xdir, "Permanent moments in X direction")
         assert_number(imposed_moment_xdir, "Imposed moments in X direction")
         assert_number(wind_moments_xdir, "Wind moments in X direction")
+        
+        self.column_2_moments_xdir.clear()
         self.column_2_moments_xdir.extend(
             (permanent_moment_xdir, imposed_moment_xdir, wind_moments_xdir)
         )
@@ -630,22 +642,22 @@ class CombinedFootingAnalysis:
         wind_moments_ydir: float = 0,
     ):
         """
-        Updates the column moments along the Y direction. This comprises of permanent,imposed and 
+        Updates the column moments along the Y direction. This comprises of permanent,imposed and
         wind moments for the second column.
 
         Parameters
         ----------
         permanent_moment_ydir : float, optional
-            Represents permanent moments in the y axis direction acting about the x axis. 
-            Positive moments act from bottom to top while negative moments acts from top to bottom 
+            Represents permanent moments in the y axis direction acting about the x axis.
+            Positive moments act from bottom to top while negative moments acts from top to bottom
             (default unit = kNm)., by default 0
         imposed_moment_ydir : float, optional
             Represents imposed moments in the y direction acting about the x axis.
             Positive moments act from bottom to top while negative moments acts from top to bottom
             (default unit = kNm), by default 0
         wind_moments_ydir : float, optional
-            Represents wind moments in the y direction acting about the x axis. 
-            Positive moments act from bottom to top while negative moments acts from top to bottom 
+            Represents wind moments in the y direction acting about the x axis.
+            Positive moments act from bottom to top while negative moments acts from top to bottom
             (default unit = kNm), by default 0
         """
         self.permanent_moment_ydir = permanent_moment_ydir
@@ -655,6 +667,8 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_ydir, "Permanent moments in Y direction")
         assert_number(imposed_moment_ydir, "Imposed moments in Y direction")
         assert_number(wind_moments_ydir, "Wind moments in Y direction")
+        
+        self.column_1_moments_ydir.clear()
         self.column_2_moments_ydir.extend(
             (permanent_moment_ydir, imposed_moment_ydir, wind_moments_ydir)
         )
@@ -677,7 +691,7 @@ class CombinedFootingAnalysis:
         soil_depth_abv_foundation : float, optional
             Represents the depth of soil above the foundation is added to the self weight of the
             footing to arrive at the foundation own loads.(default unit mm). The default value is
-            500mm, If this value should not be included in the calculations, then this parameter 
+            500mm, If this value should not be included in the calculations, then this parameter
             should be explicitly set to zero, by default 500mm
         soil_unit_weight : float, optional
             The default unit weight of the soil is 18kN/mm^3. (default unit kN/mm^3).
@@ -795,7 +809,7 @@ class CombinedFootingAnalysis:
 
     def total_force_X_dir_sls(self):
         """
-        Calculates the total force on the foundation in the x direction using the serviceability 
+        Calculates the total force on the foundation in the x direction using the serviceability
         limit state combination of 1.0gk + 1.0qk + 1.0wk
 
         Returns
@@ -893,7 +907,7 @@ class CombinedFootingAnalysis:
 
     def total_moments_Y_direction_sls(self):
         """
-        Calculates the total moments on the foundation in the Y direction using the 
+        Calculates the total moments on the foundation in the Y direction using the
         serviceability limit state combination.
 
         Returns
@@ -941,7 +955,7 @@ class CombinedFootingAnalysis:
 
     def eccentricity_X_direction_sls(self):
         """
-        Calculates the foundation eccentricity in the X direction using the serviceability 
+        Calculates the foundation eccentricity in the X direction using the serviceability
         limit state combination.
 
         Returns
@@ -956,7 +970,7 @@ class CombinedFootingAnalysis:
 
     def eccentricity_Y_direction_sls(self):
         """
-        Calculates the foundation eccentricity in the Y direction using the serviceability 
+        Calculates the foundation eccentricity in the Y direction using the serviceability
         limit state combination.
 
         Returns
@@ -971,7 +985,7 @@ class CombinedFootingAnalysis:
 
     def pad_base_pressures_sls(self):
         """
-        Calculates the combined footing foundation pressures at the four corners of the foundation 
+        Calculates the combined footing foundation pressures at the four corners of the foundation
         using the serviceability limit state
         combination.
 
@@ -1074,7 +1088,7 @@ class CombinedFootingAnalysis:
 
     def bearing_pressure_check_sls(self):
         """
-        Checks that calculated foundation pressure does not exceed the allowable bearing pressure 
+        Checks that calculated foundation pressure does not exceed the allowable bearing pressure
         supplied at serviceability
         limit state.
 
@@ -1099,7 +1113,7 @@ class CombinedFootingAnalysis:
 
     def minimum_area_required_wt_moment(self):
         """
-        Calculates the minimum area of base required taking into account the moments 
+        Calculates the minimum area of base required taking into account the moments
         imposed on the foundation. Should be used as a rough estimate not a definitive guide.
 
         Returns
@@ -1199,7 +1213,7 @@ class CombinedFootingAnalysis:
 
     def foundation_geometry_optimizer(self):
         """
-        Calculates the optimal foundation based on the inputed loads. This is an attempt to help 
+        Calculates the optimal foundation based on the inputed loads. This is an attempt to help
         the user reduce the amount of design base pressure by suggesting the best possible geometry.
         The user can choose to accept or reject this suggestion.
 
@@ -1425,7 +1439,7 @@ class CombinedFootingAnalysis:
 
     def total_force_X_dir_uls(self):
         """
-        Calculates the total force on the foundation in the x direction using the ultimate limit 
+        Calculates the total force on the foundation in the x direction using the ultimate limit
         state combination of 1.35gk + 1.5qk + 1.5wk.
 
         Returns
@@ -1565,7 +1579,7 @@ class CombinedFootingAnalysis:
 
     def total_moments_Y_direction_uls(self):
         """
-        Calculates the total moments on the foundation in the Y direction using the ultimate 
+        Calculates the total moments on the foundation in the Y direction using the ultimate
         limit state combination.
 
         Returns
@@ -1626,7 +1640,7 @@ class CombinedFootingAnalysis:
 
     def eccentricity_X_direction_uls(self):
         """
-        Calculates the foundation eccentricity in the X direction using the ultimate 
+        Calculates the foundation eccentricity in the X direction using the ultimate
         limit state combination.
 
         Returns
@@ -1656,7 +1670,7 @@ class CombinedFootingAnalysis:
 
     def pad_base_pressures_uls(self):
         """
-        Calculates the combined footing foundation pressures at the four corners of the foundation 
+        Calculates the combined footing foundation pressures at the four corners of the foundation
         using the ultimate limit state
         combination.
 
@@ -1759,7 +1773,7 @@ class CombinedFootingAnalysis:
 
     def base_pressure_rate_of_change_X(self):
         """
-        Calculates the rate of change of the base pressure at each meter of the foundation 
+        Calculates the rate of change of the base pressure at each meter of the foundation
         length using Ultimate Limit State combination.This would be used for analysing the shear
         and bending moment diagram along X direction.
 
@@ -1843,14 +1857,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         CombinedFootingAnalysis : Class
             Main class for combined foundation analysis
         fck : float, default - 25
-            Characteristic compressive cylinder strength in N/mm2. 
+            Characteristic compressive cylinder strength in N/mm2.
             Accepted range of values [16,20,25,30,32,35,37,40,45,55]
         fyk : float, default - 460
             Characteristic yield strength of reinforcement in N/mm2
         concrete_cover : float, default - 30
             Nominal cover to foundation in mm
         bar_diameterX : int, default - 16
-            Assumed bar diameter of the foundation in the x direction in mm. 
+            Assumed bar diameter of the foundation in the x direction in mm.
             Accepted range of values [8,10,12,16,20,25,32,40]
         bar_diameterY : int, default - 16
             Assumed bar diameter of the foundation in the y direction in mm.
@@ -1888,13 +1902,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def __loading_diagrams_X_dir(self):
         """
-        Creates an analysis model for the foundation that would then be analysed to get the 
+        Creates an analysis model for the foundation that would then be analysed to get the
         design forces along the x direction.
 
         Returns
         -------
         Object
-            foundation loading diagram in the x direction wrapped around the beam 
+            foundation loading diagram in the x direction wrapped around the beam
             class of the IndeterminateBeam package.
         """
         foundation = Beam(self.CombinedFootingAnalysis.foundation_length)
@@ -1937,13 +1951,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def __loading_diagrams_Y_dir(self):
         """
-        Creates an analysis model for the foundation that would then be analysed to get 
+        Creates an analysis model for the foundation that would then be analysed to get
         the design forces along the x direction.
 
         Returns
         -------
         Object
-            foundation loading diagram in the x direction wrapped around the beam class 
+            foundation loading diagram in the x direction wrapped around the beam class
             of the IndeterminateBeam package.
         """
         foundation = Beam(self.CombinedFootingAnalysis.foundation_width)
@@ -1995,9 +2009,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def plot_foundation_loading_X(self):
         """
-        Shows the load acting on the foundation in the X direction this consists 
-        of the soil loads and concrete own load acting as a udl over the foundation 
-        length and a soil pressure acting underneath the foundation along the 
+        Shows the load acting on the foundation in the X direction this consists
+        of the soil loads and concrete own load acting as a udl over the foundation
+        length and a soil pressure acting underneath the foundation along the
         foundation length.
         """
         foundationx = self.__loading_diagrams_X_dir()
@@ -2009,7 +2023,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
     def plot_foundation_loading_Y(self):
         """
         Shows the load acting on the foundation in the Y direction this consists of the soil
-        loads and concrete own load acting as a udl over the foundation width and a soil 
+        loads and concrete own load acting as a udl over the foundation width and a soil
         pressure acting underneath the foundation along the foundation width.
         """
         foundationy = self.__loading_diagrams_Y_dir()
@@ -2020,7 +2034,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def plot_bending_moment_X(self):
         """
-        Plots the foundation bending moment diagram along X direction showing the design 
+        Plots the foundation bending moment diagram along X direction showing the design
         moment at the face of the column.
         """
         foundation = self.__loading_diagrams_X_dir()
@@ -2047,7 +2061,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         fig1.show()
 
     def plot_bending_moment_Y(self):
-        """Plot the foundation bending moment diagram along Y direction showing the design moment 
+        """Plot the foundation bending moment diagram along Y direction showing the design moment
         at the face of the column"""
         foundation = self.__loading_diagrams_Y_dir()
         foundation.analyse()
@@ -2115,7 +2129,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def plot_shear_force_Y(self):
         """
-        Plots the foundation shear force diagram along Y direction showing the design 
+        Plots the foundation shear force diagram along Y direction showing the design
         shear force at a distance 1d from the column face.
         """
         foundation = self.__loading_diagrams_Y_dir()
@@ -2193,7 +2207,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def get_design_moment_Y(self):
         """
-        Outputs the design bending moments of the foundation along the y 
+        Outputs the design bending moments of the foundation along the y
         direction at the face of the column.
 
         Returns
@@ -2245,7 +2259,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def get_design_shear_force_X(self):
         """
-        Outputs the design shear force of the foundation, at a distance 1D 
+        Outputs the design shear force of the foundation, at a distance 1D
         from the face of the column along the X direction.
 
         Returns
@@ -2278,7 +2292,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def get_design_shear_force_Y(self):
         """
-        Outputs the design shear force of the foundation, at a distance 1D 
+        Outputs the design shear force of the foundation, at a distance 1D
         from the face of the column along the Y direction.
 
         Returns
@@ -2366,13 +2380,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         list
             Reinforcement provision, steel diameter, steel class, area provided.
         """
-        # In developing the web front end version of this code there would be a combobox 
+        # In developing the web front end version of this code there would be a combobox
         # that includes
         # the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose the steel that he 
-        # founds 
+        # spacing this would give power to the user to enable the user chose the steel that he
+        # founds
         # appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area of reinforcement based on 
+        # but for now i have coded a function to automatically select area of reinforcement based on
         # the area of steel required initially calculated
         as_required = np.array(self.area_of_steel_reqd_X_dir())
         result = []
@@ -2391,9 +2405,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         """
         # In developing the web front end version of this code there would be a combobox that
         # includes the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose the steel that 
+        # spacing this would give power to the user to enable the user chose the steel that
         # he founds appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area of reinforcement 
+        # but for now i have coded a function to automatically select area of reinforcement
         # based on the area of steel required initially calculated
         steel_bars = self.__reinforcement_calculations_X_dir()[0]
         steel_label = steel_bars[0]
@@ -2411,11 +2425,11 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         string
             Formatted string showing steel diameter, steel class, spacing and area provided.
         """
-        # In developing the web front end version of this code there would be a combobox that 
+        # In developing the web front end version of this code there would be a combobox that
         # includes the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose the steel that 
+        # spacing this would give power to the user to enable the user chose the steel that
         # he founds appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area of reinforcement 
+        # but for now i have coded a function to automatically select area of reinforcement
         # based on the area of steel required initially calculated
         steel_bars = self.__reinforcement_calculations_X_dir()[1]
         steel_label = steel_bars[0]
@@ -2468,11 +2482,11 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         list
             Reinforcement provision, steel diameter, steel class, area provided.
         """
-        # In developing the web front end version of this code there would be a 
+        # In developing the web front end version of this code there would be a
         # combobox that includes the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose 
+        # spacing this would give power to the user to enable the user chose
         # the steel that he founds appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area 
+        # but for now i have coded a function to automatically select area
         # of reinforcement based on the area of steel required initially calculated
         as_required = np.array(self.area_of_steel_reqd_Y_dir())
         result = []
@@ -2489,11 +2503,11 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         string
             Formatted string showing steel diameter, steel class, spacing and area provided.
         """
-        # In developing the web front end version of this code there would be a combobox that 
+        # In developing the web front end version of this code there would be a combobox that
         # includes the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose the steel that 
+        # spacing this would give power to the user to enable the user chose the steel that
         # he founds appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area of reinforcement 
+        # but for now i have coded a function to automatically select area of reinforcement
         # based on the area of steel required initially calculated
         steel_bars = self.__reinforcement_calculations_Y_dir()[0]
         steel_label = steel_bars[0]
@@ -2517,7 +2531,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         # includes the bar diameters and equivalent reinforcement
         # spacing this would give power to the user to enable the user chose the steel that
         # he founds appropriate tp satisfy the reinforcement requirement
-        # but for now i have coded a function to automatically select area of reinforcement 
+        # but for now i have coded a function to automatically select area of reinforcement
         # based on the area of steel required initially calculated
         steel_bars = self.__reinforcement_calculations_Y_dir()[1]
         steel_label = steel_bars[0]
@@ -2530,13 +2544,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def tranverse_shear_check_Xdir(self):
         """
-        Checks the adequacy of the shear stress at a distance equal to d from the column face 
+        Checks the adequacy of the shear stress at a distance equal to d from the column face
         along the X direction.
 
         Returns
         -------
         string
-            formatted string showing the Design shear resistance and design shear force for 
+            formatted string showing the Design shear resistance and design shear force for
             the x direction.
         """
         design_shear_force = self.get_design_shear_force_X()
@@ -2563,13 +2577,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def tranverse_shear_check_Ydir(self):
         """
-        Checks the adequacy of the shear stress at a distance equal to d from the column 
+        Checks the adequacy of the shear stress at a distance equal to d from the column
         face along the Y direction.
 
         Returns
         -------
         string
-            formatted string showing the Design shear resistance and design shear force 
+            formatted string showing the Design shear resistance and design shear force
             for the Y direction.
         """
         design_shear_force = self.get_design_shear_force_Y()
@@ -2622,14 +2636,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
     def update_punching_shear_stress_factor(self, beta: float = 0):
         """
-        Updates the punching shear stress factor as per guidelines in clause 6.4.3(6) of 
+        Updates the punching shear stress factor as per guidelines in clause 6.4.3(6) of
         the eurocode 2
 
         Parameter
         ---------
         beta : float, default - 0
-            Punching shear stress factor according to (fig 6.21N). This is used to override 
-            the program's calculated punching shear stress factor. if not called beta is 
+            Punching shear stress factor according to (fig 6.21N). This is used to override
+            the program's calculated punching shear stress factor. if not called beta is
             calculated using description in expression 6.51 of the design code.
 
         Returns
@@ -3072,7 +3086,6 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             elif self.__punching_shear()[1] < ved_design:
                 return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 \
             is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
-            
 
     def col_2_punching_shear_column_face(self):
         """
