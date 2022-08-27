@@ -3072,7 +3072,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             elif self.__punching_shear()[1] < ved_design:
                 return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 \
             is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
-            # return design_punching_shear_force
+            
 
     def col_2_punching_shear_column_face(self):
         """
@@ -3306,7 +3306,6 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             elif self.__punching_shear()[2] < ved_design:
                 return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 \
                     is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
-            # return ved_design
 
     def col_2_punching_shear_check_2d(self):
         """
