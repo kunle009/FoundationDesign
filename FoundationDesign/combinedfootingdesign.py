@@ -2176,7 +2176,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
         Returns
         -------
-        float
+        Negative Bending Moment : float
+            design bending moment in x direction (default unit - kNm)
+        Positive Bending Moment : float
             design bending moment in x direction (default unit - kNm)
         """
         foundation = self.__loading_diagrams_X_dir()
@@ -2211,7 +2213,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
         Returns
         -------
-        float
+        Negative Bending Moment : float
+            design bending moment in x direction (default unit - kNm)
+        Positive Bending Moment : float
             design bending moment in x direction (default unit - kNm)
         """
         foundation = self.__loading_diagrams_Y_dir()
@@ -2368,7 +2372,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             area_required_per_m[i] = (
                 area_of_steel_required / self.CombinedFootingAnalysis.foundation_width
             )
-        return area_required_per_m
+        return area_required_per_m.round(2)
 
     def __reinforcement_calculations_X_dir(self):
         """
@@ -2470,7 +2474,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             area_required_per_m[i] = (
                 area_of_steel_required / self.CombinedFootingAnalysis.foundation_length
             )
-        return area_required_per_m
+        return area_required_per_m.round(2)
 
     def __reinforcement_calculations_Y_dir(self):
         """
@@ -2537,9 +2541,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.\
-            The area provided is {area_provided}mm\u00b2/m parallel to the \
-                {self.CombinedFootingAnalysis.foundation_width}m side"
+        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side"
 
     def tranverse_shear_check_Xdir(self):
         """
