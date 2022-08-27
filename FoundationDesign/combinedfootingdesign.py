@@ -425,7 +425,7 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_xdir, "Permanent moments in X direction")
         assert_number(imposed_moment_xdir, "Imposed moments in X direction")
         assert_number(wind_moments_xdir, "Wind moments in X direction")
-        
+
         self.column_1_moments_xdir.clear()
         self.column_1_moments_xdir.extend(
             (permanent_moment_xdir, imposed_moment_xdir, wind_moments_xdir)
@@ -464,7 +464,7 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_ydir, "Permanent moments in Y direction")
         assert_number(imposed_moment_ydir, "Imposed moments in Y direction")
         assert_number(wind_moments_ydir, "Wind moments in Y direction")
-        
+
         self.column_1_moments_ydir.clear()
         self.column_1_moments_ydir.extend(
             (permanent_moment_ydir, imposed_moment_ydir, wind_moments_ydir)
@@ -498,8 +498,7 @@ class CombinedFootingAnalysis:
         assert_number(permanent_axial_load, "Permanent Axial Loads")
         assert_number(imposed_axial_load, "Imposed Axial Loads")
         assert_number(wind_axial_load, "Wind Axial Loads")
-        
-        
+
         self.column_2_axial_loads.clear()
         self.column_2_axial_loads.extend(
             (permanent_axial_load, imposed_axial_load, wind_axial_load)
@@ -541,7 +540,7 @@ class CombinedFootingAnalysis:
             imposed_horizontal_load_xdir, "Imposed Horizontal loads in X direction"
         )
         assert_number(wind_horizontal_load_xdir, "Wind Horizontal loads in X direction")
-        
+
         self.column_2_horizontal_loads_xdir.clear()
         self.column_2_horizontal_loads_xdir.extend(
             (
@@ -629,7 +628,7 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_xdir, "Permanent moments in X direction")
         assert_number(imposed_moment_xdir, "Imposed moments in X direction")
         assert_number(wind_moments_xdir, "Wind moments in X direction")
-        
+
         self.column_2_moments_xdir.clear()
         self.column_2_moments_xdir.extend(
             (permanent_moment_xdir, imposed_moment_xdir, wind_moments_xdir)
@@ -667,7 +666,7 @@ class CombinedFootingAnalysis:
         assert_number(permanent_moment_ydir, "Permanent moments in Y direction")
         assert_number(imposed_moment_ydir, "Imposed moments in Y direction")
         assert_number(wind_moments_ydir, "Wind moments in Y direction")
-        
+
         self.column_1_moments_ydir.clear()
         self.column_2_moments_ydir.extend(
             (permanent_moment_ydir, imposed_moment_ydir, wind_moments_ydir)
