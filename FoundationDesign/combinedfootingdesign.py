@@ -1225,7 +1225,7 @@ class CombinedFootingAnalysis:
         )
         total_soil = sum(fdn_loads)
         min_area = total_force_Z_direction / (self.soil_bearing_capacity - total_soil)
-        return min_area
+        return round(min_area, 3)
 
     def foundation_geometry_optimizer(self):
         """
