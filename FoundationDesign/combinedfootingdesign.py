@@ -114,6 +114,7 @@ class CombinedFootingAnalysis:
         self.soil_depth_abv_foundation = 0
         self.soil_unit_weight = 18
         self.concrete_unit_weight = 24
+        self.consider_self_weight = True
         self.permanent_axial_load = 0
         self.permanent_horizontal_load_xdir = 0
         self.permanent_horizontal_load_ydir = 0
@@ -678,6 +679,7 @@ class CombinedFootingAnalysis:
         soil_depth_abv_foundation: float = 500,
         soil_unit_weight: float = 18,
         concrete_unit_weight: float = 24,
+        consider_self_weight:bool = True 
     ):
         """
         Calculates the foundation self weight which includes the soil weight above the foundation
@@ -696,6 +698,8 @@ class CombinedFootingAnalysis:
             The default unit weight of the soil is 18kN/mm^3. (default unit kN/mm^3).
         concrete_unit_weight : float, optional
             The default unit weight of the concrete is 24kN/mm^3 (default unit kN/mm^3).
+        consider_self_weight : Bool, optional
+            If True self weight would be added if False self weight wont be considered
 
         Returns
         -------
@@ -712,6 +716,7 @@ class CombinedFootingAnalysis:
         self.soil_depth_abv_foundation = soil_depth_abv_foundation / 1000
         self.soil_unit_weight = soil_unit_weight
         self.concrete_unit_weight = concrete_unit_weight
+        self.consider_self_weight = consider_self_weight
 
         # data validation for inputs
         assert_input_limit(
@@ -725,13 +730,20 @@ class CombinedFootingAnalysis:
             "Soil Depth Above Foundation",
         )
         assert_input_limit(soil_unit_weight, 18, "Soil Unit Weight")
-        assert_input_limit(concrete_unit_weight, 24, "Concrete Unit Weight")
+        assert_input_limit(concrete_unit_weight, 0, "Concrete Unit Weight")
 
-        foundation_self_weight = self.foundation_thickness * self.concrete_unit_weight
-        soil_weight = self.soil_depth_abv_foundation * self.soil_unit_weight
-        x = round(foundation_self_weight, 3), round(soil_weight, 3)
-        return list(x)
-
+        if self.consider_self_weight:
+            foundation_self_weight = self.foundation_thickness * self.concrete_unit_weight
+            soil_weight = self.soil_depth_abv_foundation * self.soil_unit_weight
+            x = round(foundation_self_weight, 3), round(soil_weight, 3)
+            return list(x)
+        else:
+            foundation_self_weight = self.foundation_thickness * self.concrete_unit_weight
+            soil_weight = self.soil_depth_abv_foundation * self.soil_unit_weight
+            x = 0.00, round(soil_weight, 3)
+            return list(x)
+    
+    
     def plot_geometry(self):
         """Plots the geometry of the foundation, showing the column position relative to the pad base"""
         fig_plan = go.Figure()
@@ -850,6 +862,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         return sum(self.column_1_axial_loads + self.column_2_axial_loads) + (
             self.area_of_foundation() * (fdn_loads[0] + fdn_loads[1])
@@ -870,6 +883,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         Mdx_column_1 = (
             (
@@ -919,6 +933,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         Mdy_column_1 = (
             (
@@ -1130,6 +1145,7 @@ class CombinedFootingAnalysis:
                 self.soil_depth_abv_foundation * 1000,
                 self.soil_unit_weight,
                 self.concrete_unit_weight,
+                self.consider_self_weight
             )
             total_force_Z_direction = sum(
                 self.column_1_axial_loads + self.column_2_axial_loads
