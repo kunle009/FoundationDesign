@@ -1218,6 +1218,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         total_force_Z_direction = sum(
             self.column_1_axial_loads + self.column_2_axial_loads
@@ -1259,6 +1260,7 @@ class CombinedFootingAnalysis:
                     self.soil_depth_abv_foundation * 1000,
                     self.soil_unit_weight,
                     self.concrete_unit_weight,
+                    self.consider_self_weight
                 )
                 total_force_Z_direction = sum(
                     self.column_1_axial_loads + self.column_2_axial_loads
@@ -1317,6 +1319,7 @@ class CombinedFootingAnalysis:
                     self.soil_depth_abv_foundation * 1000,
                     self.soil_unit_weight,
                     self.concrete_unit_weight,
+                    self.consider_self_weight
                 )
                 Mdy = (
                     (x * y * (fdn_loads[0] + fdn_loads[1]) * (y / 2))
@@ -1516,6 +1519,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         foundation_loads = [sum(fdn_loads) * self.area_of_foundation(), 0, 0]
         partial_factor_set = [
@@ -1547,6 +1551,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         Mdx_column_1 = (
             self.uls_strength_factor_permanent
@@ -1607,6 +1612,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
+            self.consider_self_weight
         )
         Mdy_column_1 = (
             self.uls_strength_factor_permanent
@@ -1945,6 +1951,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             self.CombinedFootingAnalysis.soil_depth_abv_foundation * 1000,
             self.CombinedFootingAnalysis.soil_unit_weight,
             self.CombinedFootingAnalysis.concrete_unit_weight,
+            self.CombinedFootingAnalysis.consider_self_weight
         )
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_width * 1000
@@ -1958,10 +1965,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load1 = DistributedLoadV(
                 left_load, span=(0, self.CombinedFootingAnalysis.foundation_length)
             )
-        foundation_load2 = DistributedLoadV(
-            -udl, span=(0, self.CombinedFootingAnalysis.foundation_length)
-        )
-        foundation.add_loads(foundation_load1, foundation_load2)
+        if sum(fdn_loads) != 0.00:
+            foundation_load2 = DistributedLoadV(
+                -udl, span=(0, self.CombinedFootingAnalysis.foundation_length)
+            )
+            foundation.add_loads(foundation_load1, foundation_load2)
+        elif sum(fdn_loads) == 0.00:
+            foundation.add_loads(foundation_load1)
         return foundation
 
     def __loading_diagrams_Y_dir(self):
@@ -2003,6 +2013,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             self.CombinedFootingAnalysis.soil_depth_abv_foundation * 1000,
             self.CombinedFootingAnalysis.soil_unit_weight,
             self.CombinedFootingAnalysis.concrete_unit_weight,
+            self.CombinedFootingAnalysis.consider_self_weight
         )
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_length * 1000
@@ -2016,10 +2027,13 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load1 = DistributedLoadV(
                 left_load, span=(0, self.CombinedFootingAnalysis.foundation_width)
             )
-        foundation_load2 = DistributedLoadV(
-            -udl, span=(0, self.CombinedFootingAnalysis.foundation_width)
-        )
-        foundation.add_loads(foundation_load1, foundation_load2)
+        if sum(fdn_loads) != 0.00:
+            foundation_load2 = DistributedLoadV(
+                -udl, span=(0, self.CombinedFootingAnalysis.foundation_width)
+            )
+            foundation.add_loads(foundation_load1, foundation_load2)
+        elif sum(fdn_loads) == 0.00:
+            foundation.add_loads(foundation_load1)
         return foundation
 
     def plot_foundation_loading_X(self):
