@@ -16,7 +16,8 @@ This module will be useful in determining:
 - Punching shear checks etc
 
 The project is based mainly on instructions contained in the Eurocode 2
-alongside python packages like numpy,plotly,scipy and IndeterminateBeam package.
+alongside python packages like numpy,plotly,scipy and IndeterminateBeam package. Comprehensive
+examples are contained in the examples folder
 
 ## Project Purpose
 
