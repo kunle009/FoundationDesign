@@ -27,7 +27,7 @@ alongside python packages like numpy,plotly,scipy and IndeterminateBeam package.
 
 ## Functionality and usage
 
-For now this package is limited to only concentric and eccentric pad foundation.
+For now this package is limited to only concentric and eccentric pad foundation and combined footing foundation types.
 A typical use case of the pad foundation class contained in the ```FoundationDesign``` module includes
 
 - Create a `PadFoundation` object to help analyse
@@ -111,9 +111,7 @@ The shear force plot is also displayed with critical shearforce showing at 1d fr
 
 The following are areas that will be implemented in future:
 
-- Adding a method to calculate sliding
 - Adding a method to calculate crack width
 - PDF report generation
-- Add a class to design combined footings.
 - User documentation
 - Creating a web application interface to be hosted on [Civils.ai](https://civils.ai)
