@@ -10,7 +10,7 @@ import operator
 # Third Party Imports
 import numpy as np
 import plotly.graph_objs as go
-from indeterminatebeam import Beam, Support, TrapezoidalLoadV, DistributedLoadV
+from indeterminatebeam import Beam, Support, TrapezoidalLoadV, DistributedLoadV,PointLoad
 
 # Local Application Imports
 from FoundationDesign.datavalidation import (
@@ -1535,6 +1535,27 @@ class CombinedFootingAnalysis:
         ]
         total_loads = np.sum(np.multiply(partial_factor_set, load_sum))
         return total_loads
+    
+    def total_axial_force_uls(self):
+        """
+        Calculates the total axial force at ultimate limit states of 1.35gk + 1.5qk + 1.5wk
+        The foundation loads are converted to kN and added to the total axial loads from permanent,
+        imposed and wind loads for the individual columns.
+
+        Returns
+        -------
+        float
+            sum of permanent,imposed and wind axial loads including foundation loads in kN
+        """
+        partial_factor_set = [
+            self.uls_strength_factor_permanent,
+            self.uls_strength_factor_imposed,
+            self.uls_strength_factor_imposed,
+        ]
+        load_sum_col1 = np.sum(np.multiply(partial_factor_set,self.column_1_axial_loads))
+        load_sum_col2 = np.sum(np.multiply(partial_factor_set,self.column_2_axial_loads))
+        return [load_sum_col1,load_sum_col2]
+
 
     def total_moments_X_direction_uls(self):
         """
@@ -1934,10 +1955,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         """
         foundation = Beam(self.CombinedFootingAnalysis.foundation_length)
         support_a = Support(
-            self.CombinedFootingAnalysis.column_1_geometry[2], fixed=(1, 1, 1)
+            self.CombinedFootingAnalysis.column_1_geometry[2], (1, 1, 0)
         )
         support_b = Support(
-            self.CombinedFootingAnalysis.column_2_geometry[2], fixed=(1, 1, 1)
+            self.CombinedFootingAnalysis.column_2_geometry[2], (1, 1, 0)
         )
         foundation.add_supports(support_a, support_b)
         left_load = (
@@ -1956,6 +1977,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_width * 1000
         ) * self.CombinedFootingAnalysis.uls_strength_factor_permanent
+        p1 = self.CombinedFootingAnalysis.total_axial_force_uls()[0] * 1000
+        p2 = self.CombinedFootingAnalysis.total_axial_force_uls()[1] * 1000
+        point_load_1 = PointLoad(force=p1.item(), coord=self.CombinedFootingAnalysis.column_1_geometry[2], angle=-90)
+        point_load_2 = PointLoad(force=p2.item(), coord=self.CombinedFootingAnalysis.column_2_geometry[2], angle=-90)
         if left_load != right_load:
             foundation_load1 = TrapezoidalLoadV(
                 force=(left_load, right_load),
@@ -1969,9 +1994,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load2 = DistributedLoadV(
                 -udl, span=(0, self.CombinedFootingAnalysis.foundation_length)
             )
-            foundation.add_loads(foundation_load1, foundation_load2)
+            foundation.add_loads(foundation_load1, foundation_load2,point_load_1,point_load_2)
         elif sum(fdn_loads) == 0.00:
-            foundation.add_loads(foundation_load1)
+            foundation.add_loads(foundation_load1,point_load_1,point_load_2)
         return foundation
 
     def __loading_diagrams_Y_dir(self):
@@ -1991,15 +2016,15 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
         if column_1_pos_ydir == column_2_pos_ydir:
             support_a = Support(
-                self.CombinedFootingAnalysis.column_1_geometry[3], fixed=(1, 1, 1)
+                self.CombinedFootingAnalysis.column_1_geometry[3], (1, 1, 0)
             )
             foundation.add_supports(support_a)
         elif column_1_pos_ydir != column_2_pos_ydir:
             support_a = Support(
-                self.CombinedFootingAnalysis.column_1_geometry[3], fixed=(1, 1, 1)
+                self.CombinedFootingAnalysis.column_1_geometry[3], (1, 1, 0)
             )
             support_b = Support(
-                self.CombinedFootingAnalysis.column_2_geometry[3], fixed=(1, 1, 1)
+                self.CombinedFootingAnalysis.column_2_geometry[3], (1, 1, 0)
             )
             foundation.add_supports(support_a, support_b)
         left_load = (
@@ -2015,6 +2040,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             self.CombinedFootingAnalysis.concrete_unit_weight,
             self.CombinedFootingAnalysis.consider_self_weight
         )
+        p1 = self.CombinedFootingAnalysis.total_axial_force_uls()[0] * 1000
+        p2 = self.CombinedFootingAnalysis.total_axial_force_uls()[1] * 1000
+        point_load_1 = PointLoad(force=p1.item(), coord=self.CombinedFootingAnalysis.column_1_geometry[3], angle=-90)
+        point_load_2 = PointLoad(force=p2.item(), coord=self.CombinedFootingAnalysis.column_2_geometry[3], angle=-90)
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_length * 1000
         ) * self.CombinedFootingAnalysis.uls_strength_factor_permanent
@@ -2031,9 +2060,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load2 = DistributedLoadV(
                 -udl, span=(0, self.CombinedFootingAnalysis.foundation_width)
             )
-            foundation.add_loads(foundation_load1, foundation_load2)
+            foundation.add_loads(foundation_load1, foundation_load2, point_load_1,point_load_2)
         elif sum(fdn_loads) == 0.00:
-            foundation.add_loads(foundation_load1)
+            foundation.add_loads(foundation_load1, point_load_1,point_load_2)
         return foundation
 
     def plot_foundation_loading_X(self):
@@ -2447,7 +2476,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP. The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_length}m side"
+        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_length}m side"
 
     def reinforcement_prov_flexure_X_dir_Bottom(self):
         """
@@ -2571,7 +2600,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side"
+        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c Bottom.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side"
 
     def tranverse_shear_check_Xdir(self):
         """
