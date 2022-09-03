@@ -110,6 +110,17 @@ This outputs the bending moment plot with the design bending moment shown at the
 The shear force plot is also displayed with critical shearforce showing at 1d from column the face
 ![Image](https://github.com/CodedKunz/FoundationDesign/blob/main/examples/shear_force.jpg?raw=true)
 
+## Installing the package
+
+If you want to install the `FoundationDesign` package, you run this one-liner:
+
+    pip install FoundationDesign
+
+**NOTE**: You need Python 3 to install this package (you may need to write `pip3` instead of `pip`).
+
+The library dependencies are listed in the file `requirements.txt`, but you only need to look at them if you clone the repository.
+If you install the package via `pip`, the listed dependencies should be installed automatically.
+
 ## Future Works
 
 The following are areas that will be implemented in future:
