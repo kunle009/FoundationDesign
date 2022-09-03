@@ -21,3 +21,5 @@ FoundationDesign.egg-info/SOURCES.txt
 FoundationDesign.egg-info/top_level.txt
 dist/
 __pycache__/
+*.egg-info/
+build/
