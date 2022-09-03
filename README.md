@@ -1,6 +1,8 @@
 
 # FoundationDesign
 
+![PyPI](https://img.shields.io/pypi/v/FoundationDesign) ![PyPI - License](https://img.shields.io/pypi/l/FoundationDesign)
+
 FoundationDesign is a python module to be used for the design and analysis
 of different foundation types in accordance to the Eurocode 2.
 This project is an attempt to have a free standalone python package that can
