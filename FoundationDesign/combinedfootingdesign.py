@@ -401,7 +401,7 @@ class CombinedFootingAnalysis:
         wind_moments_xdir: float = 0,
     ):
         """
-        Updatess the first column moments along the X direction. This comprises of permanent,
+        Updates the first column moments along the X direction. This comprises of permanent,
         imposed and wind moments
 
         Parameters
