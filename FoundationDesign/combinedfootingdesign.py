@@ -2016,7 +2016,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
 
         if column_1_pos_ydir == column_2_pos_ydir:
             support_a = Support(
-                self.CombinedFootingAnalysis.column_1_geometry[3], (1, 1, 0)
+                self.CombinedFootingAnalysis.column_1_geometry[3], (1, 1, 1)
             )
             foundation.add_supports(support_a)
         elif column_1_pos_ydir != column_2_pos_ydir:
