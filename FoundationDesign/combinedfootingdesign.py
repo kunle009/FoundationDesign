@@ -2242,7 +2242,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         """
         foundation = self.__loading_diagrams_X_dir()
         foundation.analyse()
-        point_1 = (
+        point_1 = ( 
             self.CombinedFootingAnalysis.column_1_geometry[2]
             - self.CombinedFootingAnalysis.column_1_geometry[0] / 2
         )
