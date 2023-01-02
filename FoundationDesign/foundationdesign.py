@@ -1600,7 +1600,7 @@ class padFoundationDesign(PadFoundation):
             Formatted string showing steel diameter, steel class, spacing and area provided.
         """
         # In developing the web front end version of this code there would be a combobox that includes the bar diameters and equivalent reinforcement
-        # spacing this would give power to the user to enable the user chose the steel that he founds appropriate tp satisfy the reinforcement requirement
+        # spacing, this would give power to the user to enable the user chose the steel that he founds appropriate tp satisfy the reinforcement requirement,
         # but for now i have coded a function to automatically select area of reinforcement based on the area of steel required initially calculated
         steel_bars = self.__reinforcement_calculations_X_dir()
         steel_label = steel_bars[0]
