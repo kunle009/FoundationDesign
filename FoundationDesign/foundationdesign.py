@@ -31,7 +31,7 @@ class PadFoundation:
     """
     Represents a rectangular or square pad foundation that can take permanent,variable and wind loads.
 
-    This class serves as the main class that helps analyse the foundation to get the forces needed to design the 
+    This class serves as the main class that helps analyse the foundation to get the forces needed to design the
     foundation against.
 
     Attributes
