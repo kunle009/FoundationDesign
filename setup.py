@@ -11,7 +11,7 @@ with open("requirements.txt", "r") as fh:
 
 setuptools.setup(
     name="FoundationDesign",
-    version="0.0.1",
+    version="0.0.2",
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
     description=" A python module for structural analysis and design of different foundation type in accordance to the Eurocodes",
