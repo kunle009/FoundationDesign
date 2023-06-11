@@ -129,4 +129,3 @@ The following are areas that will be implemented in future:
 - Adding a method to calculate crack width
 - PDF report generation
 - User documentation
-- Creating a web application interface to be hosted on [Civils.ai](https://civils.ai)
