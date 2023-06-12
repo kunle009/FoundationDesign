@@ -27,7 +27,7 @@ examples are contained in the examples folder
 1. Create a free python package that can analyse and design pad foundation,combined footing foundation,
     pile foundation and/or raft foundation design.
 
-2. Create the web version of this module on [Civils.ai](https://civils.ai) platform an open source website for civil engineering calculations.
+2. Create the web version of this module.
 
 ## Functionality and usage
 
