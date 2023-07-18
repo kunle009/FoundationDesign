@@ -223,7 +223,7 @@ class PadFoundation:
         """
         return self.foundation_length * self.foundation_width
 
-    def plot_geometry(self):
+    def plot_geometry(self, show_plot=True):
         """Plots the geometry of the foundation, showing the column position relative to the pad base"""
         fig_plan = go.Figure()
         y = [0, 0, self.foundation_width, self.foundation_width, 0]
@@ -261,7 +261,10 @@ class PadFoundation:
         fig_plan.update_layout(
             title_text="FOOTING PLAN", width=500, height=500, showlegend=True
         )
-        fig_plan.show()
+        if show_plot:
+            fig_plan.show()
+        else:
+            return fig_plan
 
     def foundation_loads(
         self,
@@ -796,16 +799,16 @@ class PadFoundation:
         if (minimum_pad_pressure <= self.soil_bearing_capacity) and (
             maximum_pad_pressure <= self.soil_bearing_capacity
         ):
-            status = print(
-                "PASS - Presumed bearing capacity exceeds design base pressure"
-            )
+            status = "PASS - Presumed bearing capacity exceeds design base pressure"
         else:
-            status = print(
-                "Fail - Presumed bearing capacity lesser than design base pressure"
-            )
-        return status
+            status = "Fail - Presumed bearing capacity lesser than design base pressure"
+        return {
+            "minimum_pad_pressure": minimum_pad_pressure,
+            "maximum_pad_pressure": maximum_pad_pressure,
+            "status": status,
+        }
 
-    def plot_base_pressures_sls(self):
+    def plot_base_pressures_sls(self, show_plot=True):
         """Plots the foundation pressures at each corners of the foundation using the serviceability limit state combination."""
         fig_plan = go.Figure()
 
@@ -856,7 +859,10 @@ class PadFoundation:
         fig_plan.update_layout(
             title_text="FOOTING PLAN", width=500, height=500, showlegend=True
         )
-        fig_plan.show()
+        if show_plot:
+            fig_plan.show()
+        else:
+            return fig_plan
 
     def total_force_X_dir_uls(self):
         """
@@ -1384,7 +1390,7 @@ class padFoundationDesign(PadFoundation):
         foundation.add_loads(foundation_load1, foundation_load2)
         return foundation
 
-    def plot_foundation_loading_X(self):
+    def plot_foundation_loading_X(self, show_plot=True):
         """
         Shows the load acting on the foundation in the X direction this consists of the soil loads and concrete
         own load acting as a udl over the foundation length and a soil pressure acting underneath the foundation
@@ -1394,9 +1400,12 @@ class padFoundationDesign(PadFoundation):
         fig = foundationx.plot_beam_diagram()
         fig.layout.title.text = "Foundation schematic (length)"
         fig.layout.xaxis.title.text = "Foundation length"
-        fig.show()
+        if show_plot:
+            fig.show()
+        else:
+            return fig
 
-    def plot_foundation_loading_Y(self):
+    def plot_foundation_loading_Y(self, show_plot=True):
         """
         Shows the load acting on the foundation in the Y direction this consists of the soil loads and concrete
         own load acting as a udl over the foundation width and a soil pressure acting underneath the foundation
@@ -1406,9 +1415,12 @@ class padFoundationDesign(PadFoundation):
         fig = foundationy.plot_beam_diagram()
         fig.layout.title.text = "Foundation schematic (width)"
         fig.layout.xaxis.title.text = "Foundation width"
-        fig.show()
+        if show_plot:
+            fig.show()
+        else:
+            return fig
 
-    def plot_bending_moment_X(self):
+    def plot_bending_moment_X(self, show_plot=True):
         """
         Plots the foundation bending moment diagram along X direction showing the design moment at the face of the column.
         """
@@ -1418,9 +1430,12 @@ class padFoundationDesign(PadFoundation):
         foundation.add_query_points(x)
         fig1 = foundation.plot_bending_moment(reverse_y=True)
         fig1.layout.xaxis.title.text = "Foundation length"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
-    def plot_bending_moment_Y(self):
+    def plot_bending_moment_Y(self, show_plot=True):
         """Plot the foundation bending moment diagram along Y direction showing the design moment at the face of the column"""
         foundation = self.__loading_diagrams_Y_dir()
         foundation.analyse()
@@ -1428,9 +1443,12 @@ class padFoundationDesign(PadFoundation):
         foundation.add_query_points(y)
         fig2 = foundation.plot_bending_moment(reverse_y=True)
         fig2.layout.xaxis.title.text = "Foundation width"
-        fig2.show()
+        if show_plot:
+            fig2.show()
+        else:
+            return fig2
 
-    def plot_shear_force_X(self):
+    def plot_shear_force_X(self, show_plot=True):
         """
         Plots the foundation shear force diagram along X direction showing the design shear force at a distance 1d
         from the column face.
@@ -1448,9 +1466,12 @@ class padFoundationDesign(PadFoundation):
         foundation.add_query_points(x1, x2)
         fig1 = foundation.plot_shear_force()
         fig1.layout.xaxis.title.text = "Foundation length"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
-    def plot_shear_force_Y(self):
+    def plot_shear_force_Y(self, show_plot=True):
         """
         Plots the foundation shear force diagram along Y direction showing the design shear force at a distance 1d
         from the column face.
@@ -1468,7 +1489,10 @@ class padFoundationDesign(PadFoundation):
         foundation.add_query_points(y1, y2)
         fig1 = foundation.plot_shear_force()
         fig1.layout.xaxis.title.text = "Foundation width"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
     def get_design_moment_X(self):
         """
@@ -1607,7 +1631,13 @@ class padFoundationDesign(PadFoundation):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c bottom. The area provided is {area_provided}mm\u00b2/m parallel to the {self.PadFoundation.foundation_length}m side"
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c bottom. The area provided is {area_provided}mm\u00b2/m parallel to the {self.PadFoundation.foundation_length}m side",
+        }
 
     def area_of_steel_reqd_Y_dir(self):
         """
@@ -1670,7 +1700,13 @@ class padFoundationDesign(PadFoundation):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c bottom. The area provided is {area_provided}mm\u00b2/m parallel to the {self.PadFoundation.foundation_width}m side"
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c bottom. The area provided is {area_provided}mm\u00b2/m parallel to the {self.PadFoundation.foundation_length}m side",
+        }
 
     def tranverse_shear_check_Xdir(self):
         """
@@ -1692,9 +1728,10 @@ class padFoundationDesign(PadFoundation):
             3,
         )
         if Vrd_c > design_shear_force:
-            return f"The design shear resistance of {Vrd_c}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
+            status = f"The design shear resistance of {Vrd_c}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
         elif Vrd_c < design_shear_force:
-            return f"The design shear resistance of {Vrd_c}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+            status = f"The design shear resistance of {Vrd_c}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+        return {"design_shear_resistance": Vrd_c, "status": status}
 
     def tranverse_shear_check_Ydir(self):
         """
@@ -1714,9 +1751,10 @@ class padFoundationDesign(PadFoundation):
             vrd_c * self.PadFoundation.foundation_length * 1000 * self.dx * 1000
         ) / 1000
         if Vrd_c > design_shear_force:
-            return f"The design shear resistance of {round(Vrd_c,3)}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
+            status = f"The design shear resistance of {round(Vrd_c,3)}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
         elif Vrd_c < design_shear_force:
-            return f"The design shear resistance of {round(Vrd_c,3)}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+            status = f"The design shear resistance of {round(Vrd_c,3)}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+        return {"design_shear_resistance": Vrd_c, "status": status}
 
     def __punching_shear(self):
         """
@@ -1798,9 +1836,14 @@ class padFoundationDesign(PadFoundation):
         )
         vrd_max = self.__punching_shear()[0]
         if vrd_max > punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 exceeds the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 exceeds the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
         elif vrd_max < punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 is less than the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 is less than the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+        return {
+            "design_punching_shear_stress": punching_shear_stress,
+            "maximum_punching_shear_resistance": vrd_max,
+            "status": status,
+        }
 
     def punching_shear_check_1d(self):
         """
@@ -1962,9 +2005,14 @@ class padFoundationDesign(PadFoundation):
                 beta = self.beta
             ved_design = ved * beta
         if self.__punching_shear()[2] > ved_design:
-            return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
+            status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
         elif self.__punching_shear()[2] < ved_design:
-            return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+        return {
+            "punching_shear_stress": round(self.__punching_shear()[2], 3),
+            "ved_design": ved_design,
+            "status": status,
+        }
 
     def punching_shear_check_2d(self):
         """
@@ -2128,9 +2176,14 @@ class padFoundationDesign(PadFoundation):
                 beta = self.beta
             ved_design = ved * beta
         if self.__punching_shear()[1] > ved_design:
-            return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
+            status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
         elif self.__punching_shear()[1] < ved_design:
-            return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+        return {
+            "design_punching_shear_stress": ved_design,
+            "shear_resistance_max": self.__punching_shear()[1],
+            "status": status,
+        }
 
     def sliding_resistance_check(self):
         """
@@ -2176,6 +2229,38 @@ class padFoundationDesign(PadFoundation):
         design_friction_angle = math.atan(x)
         sliding_resistance = force_z_direction * math.tan(design_friction_angle)
         if sliding_resistance > fdn_horizontal_force:
-            return f" The allowable sliding resistance {round(sliding_resistance)}kN is greater than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - PASS!!!"
+            status = f" The allowable sliding resistance {round(sliding_resistance)}kN is greater than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - PASS!!!"
         elif sliding_resistance < fdn_horizontal_force:
-            return f" The allowable sliding resistance {round(sliding_resistance)}kN is lesser than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - FAIL!!!"
+            status = f" The allowable sliding resistance {round(sliding_resistance)}kN is lesser than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - FAIL!!!"
+        return {
+            "design_friction_angle": design_friction_angle,
+            "sliding_resistance": sliding_resistance,
+            "foundation_horizontal_force": fdn_horizontal_force,
+            "status": status,
+        }
+
+
+if __name__ == "__main__":
+    fdn = PadFoundation(
+        foundation_length=2500,
+        foundation_width=2500,
+        column_length=400,
+        column_width=400,
+        col_pos_xdir=1250,
+        col_pos_ydir=1250,
+        soil_bearing_capacity=200,
+    )
+    # fdn.plot_geometry(show_plot = False)
+    fdn.foundation_loads(
+        foundation_thickness=650,
+        soil_depth_abv_foundation=0,
+        soil_unit_weight=18,
+        concrete_unit_weight=24,
+    )
+    fdn.bearing_pressure_check_sls()
+    fdn_design = padFoundationDesign(
+        fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16
+    )
+    print(fdn_design.reinforcement_provision_flexure_X_dir())
+    fdn_design.sliding_resistance_check()
+    fdn_design.plot_foundation_loading_Y(show_plot=False)
