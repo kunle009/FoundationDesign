@@ -23,3 +23,4 @@ dist/
 __pycache__/
 *.egg-info/
 build/
+foundation_design_script.py
