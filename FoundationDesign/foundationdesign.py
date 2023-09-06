@@ -2250,7 +2250,6 @@ if __name__ == "__main__":
         col_pos_ydir=1250,
         soil_bearing_capacity=200,
     )
-    # fdn.plot_geometry(show_plot = False)
     fdn.foundation_loads(
         foundation_thickness=650,
         soil_depth_abv_foundation=0,
