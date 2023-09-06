@@ -102,7 +102,7 @@ The creation of this object includes the following:
 
 Lots of checks can be done on the Foundation which can be found in the notebooks contained in the examples folder
 To show the bending moment of the Foundation. The ```plot_bending_moment_X()``` can be called this figure will show the
-bending moment values at the critical location along the Foundation length or width.
+bending moment values at the critical location along the Foundation length or width. Plotting methods takes a show_plot argument which can either be True or False. which by default is True
 
     fdn_design.plot_bending_moment_X()
     fdn_design.plot_shear_force_X()
