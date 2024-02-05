@@ -131,4 +131,4 @@ The following are areas that will be implemented in future:
 - Adding a method to calculate crack width
 - PDF report generation
 - User documentation
-- A comprehensive web app
+- A comprehensive web app for analysis and design of foundations
