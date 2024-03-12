@@ -42,6 +42,10 @@ class PadFoundationDesignTestCase(unittest.TestCase):
             ),
             [13.2, 0.0],
         )
+        
+    def test_minimum_area_of_foundation(self):
+        pad_foundation = self.pad_foundation
+        self.assertEqual(pad_foundation.minimum_area_required(), 10.24) 
 
 
 if __name__ == "__main__":
