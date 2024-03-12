@@ -47,6 +47,9 @@ class PadFoundationDesignTestCase(unittest.TestCase):
         pad_foundation = self.pad_foundation
         self.assertEqual(pad_foundation.minimum_area_required(), 10.24) 
 
+    def test_total_loads(self):
+        pad_foundation = self.pad_foundation
+        self.assertEquals(pad_foundation.total_force_X_dir_sls(), 50)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
