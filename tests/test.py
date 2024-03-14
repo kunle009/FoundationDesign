@@ -23,10 +23,10 @@ fdn.column_horizontal_loads_xdir(
 fdn.column_moments_xdir(permanent_moment_xdir=78, imposed_moment_xdir=34)
 
 #outputs
-print(fdn.area_of_foundation())
-print(fdn.total_force_X_dir_sls())
-print(fdn.total_force_Y_dir_sls())
-print(fdn.total_force_Z_dir_sls())
+#print(fdn.area_of_foundation())
+#print(fdn.total_force_X_dir_sls())
+#print(fdn.total_force_Y_dir_sls())
+#print(fdn.total_force_Z_dir_sls())
 print(fdn.total_moments_X_direction_sls())
 print(fdn.total_moments_Y_direction_sls())
 print(fdn.eccentricity_X_direction_sls())
