@@ -1,5 +1,3 @@
-import os
-import sys
 import unittest
 from FoundationDesign.foundationdesign import padFoundationDesign, PadFoundation
 
@@ -42,10 +40,10 @@ class PadFoundationDesignTestCase(unittest.TestCase):
             ),
             [13.2, 0.0],
         )
-        
+
     def test_minimum_area_of_foundation(self):
         pad_foundation = self.pad_foundation
-        self.assertEqual(pad_foundation.minimum_area_required(), 10.24) 
+        self.assertEqual(pad_foundation.minimum_area_required(), 10.24)
 
     def test_total_loads_moments(self):
         pad_foundation = self.pad_foundation
@@ -56,8 +54,13 @@ class PadFoundationDesignTestCase(unittest.TestCase):
         self.assertEqual(pad_foundation.total_force_Y_dir_uls(), 0)
         self.assertEqual(pad_foundation.total_moments_X_direction_sls(), 2376.108)
         self.assertEqual(pad_foundation.total_moments_Y_direction_sls(), 1863.84)
-        self.assertEqual(pad_foundation.total_moments_X_direction_uls(), 2376.108)
-        self.assertEqual(pad_foundation.total_moments_Y_direction_uls(), 2376.108)
+        self.assertEqual(pad_foundation.total_moments_X_direction_uls(), 3303.183)
+        self.assertEqual(pad_foundation.total_moments_Y_direction_uls(), 2590.434)
+
+    def test_eccentricities(self):
+        pad_foundation = self.pad_foundation
+        pass
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
