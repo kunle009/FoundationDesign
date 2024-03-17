@@ -59,7 +59,15 @@ class PadFoundationDesignTestCase(unittest.TestCase):
 
     def test_eccentricities(self):
         pad_foundation = self.pad_foundation
-        pass
+        self.assertEqual(pad_foundation.eccentricity_X_direction_uls(), 112.72)
+        self.assertEqual(pad_foundation.eccentricity_Y_direction_uls(), 0)
+        self.assertEqual(pad_foundation.eccentricity_X_direction_sls(), 112)
+        self.assertEqual(pad_foundation.eccentricity_Y_direction_sls(), 0)
+        
+    def test_pad_base_pressure(self):
+        pad_foundation = self.pad_foundation
+        self.assertTupleEqual(pad_foundation.pad_base_pressures_sls(), (93.576, 93.576, 136.528, 136.528))
+        self.assertTupleEqual(pad_foundation.pad_base_pressures_uls(), (129.863, 129.863, 189.944, 189.944))
 
 
 if __name__ == "__main__":
