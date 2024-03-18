@@ -3,7 +3,6 @@ from FoundationDesign.foundationdesign import padFoundationDesign, PadFoundation
 
 
 class PadFoundationDesignTestCase(unittest.TestCase):
-
     def setUp(self):
         fdn = PadFoundation(
             foundation_length=3600,
