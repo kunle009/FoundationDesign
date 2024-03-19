@@ -2,7 +2,7 @@ import unittest
 from FoundationDesign.foundationdesign import padFoundationDesign, PadFoundation
 
 
-class PadFoundationDesignTestCase(unittest.TestCase):
+class PadFoundationTestCase(unittest.TestCase):
     def setUp(self):
         fdn = PadFoundation(
             foundation_length=3600,
