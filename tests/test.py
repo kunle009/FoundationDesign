@@ -32,18 +32,18 @@ fdn_design = padFoundationDesign(
 #fdn_design.plot_bending_moment_X()
 #fdn_design.plot_bending_moment_Y()
 #fdn_design.plot_shear_force_Y()
-bmx = fdn_design.get_design_moment_X()
-bmy = fdn_design.get_design_moment_Y()
+print(fdn_design.get_design_moment_X())
+print(fdn_design.get_design_moment_Y())
 sfx = fdn_design.get_design_shear_force_X()
 sfy = fdn_design.get_design_shear_force_Y()
 steel_areaX = fdn_design.area_of_steel_reqd_X_dir()
 steel_areaX = fdn_design.area_of_steel_reqd_X_dir()
-fdn_design.reinforcement_provision_flexure_X_dir()['status']
-fdn_design.reinforcement_provision_flexure_Y_dir()['status']
-fdn_design.tranverse_shear_check_Ydir()['status']
-fdn_design.punching_shear_column_face()['status']
-fdn_design.punching_shear_check_2d()['status']
-fdn_design.sliding_resistance_check()['status']
+fdn_design.reinforcement_provision_flexure_X_dir()
+fdn_design.reinforcement_provision_flexure_Y_dir()
+fdn_design.tranverse_shear_check_Ydir()
+fdn_design.punching_shear_column_face()
+fdn_design.punching_shear_check_2d()
+fdn_design.sliding_resistance_check()
 
 
 
