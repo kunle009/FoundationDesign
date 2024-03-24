@@ -27,7 +27,7 @@ def shear_check_column_face(column_perimeter: float, fck: float, d: float):
     return Vrd_max
 
 
-def punching_shear_column_face(d, fck, column_perimeter):
+def punching_shear_column_face(d: float, fck: float, column_perimeter: float):
     """
     Function to check the shear at column face.
 
@@ -51,7 +51,9 @@ def punching_shear_column_face(d, fck, column_perimeter):
     return round(vrd_max, 3)
 
 
-def bending_reinforcement(m, depth, fck, fyk, length):
+def bending_reinforcement(
+    m: float, depth: float, fck: float, fyk: float, length: float
+):
     """
     Function to calculate the area of steel required according to eurocode 2.
 
@@ -84,7 +86,7 @@ def bending_reinforcement(m, depth, fck, fyk, length):
     return round(area_of_steel, 0)
 
 
-def minimum_steel(fck, fyk, bt, d):
+def minimum_steel(fck: float, fyk: float, bt: float, d: float):
     """
     Function to calculate the minimum area of steel required.
 
@@ -111,7 +113,7 @@ def minimum_steel(fck, fyk, bt, d):
     return round(minimum_as, 0)
 
 
-def maximum_steel(length, d):
+def maximum_steel(length: float, d: float):
     """
     Function to calculate the maximum area of steel required.
 
@@ -131,7 +133,7 @@ def maximum_steel(length, d):
     return max_area
 
 
-def shear_stress_check_1d(d, px, fck):
+def shear_stress_check_1d(d: float, px: float, fck: float):
     """
     Function to determine the rectangular section in shear at a distance equivalent to 1d from the column face.
 
@@ -157,7 +159,7 @@ def shear_stress_check_1d(d, px, fck):
     return round(vrd_c, 3)
 
 
-def column_punching_coefficient_k(column_ratio):
+def column_punching_coefficient_k(column_ratio: float):
     """Interpolating Values of k for rectangular loaded areas from table 6.1 of the Eurocode 2."""
     x = np.array([0.5, 1, 2, 3])
     y = np.array([0.45, 0.6, 0.7, 0.8])
