@@ -2,6 +2,7 @@
 Main module that contains the main class for Pad foundation analysis 
 and auxillary class for Pad foundation design.
 """
+
 # Standard library imports
 import math
 
@@ -212,7 +213,7 @@ class PadFoundation:
         self.col_pos_xdir = col_pos_xdir / 1000
         self.col_pos_ydir = col_pos_ydir / 1000
 
-    def area_of_foundation(self):
+    def area_of_foundation(self) -> float:
         """
         Calculates the area of the foundation.
 
@@ -268,10 +269,10 @@ class PadFoundation:
 
     def foundation_loads(
         self,
-        foundation_thickness=300,
-        soil_depth_abv_foundation=500,
-        soil_unit_weight=18,
-        concrete_unit_weight=24,
+        foundation_thickness: float = 300,
+        soil_depth_abv_foundation: float = 500,
+        soil_unit_weight: float = 18,
+        concrete_unit_weight: float = 24,
     ):
         """
         Calculates the foundation self weight which includes the soil weight above the foundation in order terms surchage
@@ -1897,9 +1898,7 @@ class padFoundationDesign(PadFoundation):
             * cy
             / self.PadFoundation.foundation_length
         )
-        area = (
-            (c1 * c2) + 2 * (c1 + c2) * average_depth + (math.pi * average_depth**2)
-        )
+        area = (c1 * c2) + 2 * (c1 + c2) * average_depth + (math.pi * average_depth**2)
         perimeter_length = 2 * (c1 + c2 + (math.pi * average_depth))
         fdn_loads = self.foundation_loads(
             self.PadFoundation.foundation_thickness * 1000,
@@ -2222,9 +2221,7 @@ class padFoundationDesign(PadFoundation):
         force_z_direction = (
             self.PadFoundation.area_of_foundation() * (fdn_loads[0] + fdn_loads[1])
         ) + self.PadFoundation.permanent_axial_load
-        fdn_horizontal_force = (
-            (force_x_direction**2) + (force_y_direction**2)
-        ) ** 0.5
+        fdn_horizontal_force = ((force_x_direction**2) + (force_y_direction**2)) ** 0.5
         x = math.tan(math.radians(20)) / 1
         design_friction_angle = math.atan(x)
         sliding_resistance = force_z_direction * math.tan(design_friction_angle)
