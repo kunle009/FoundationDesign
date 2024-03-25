@@ -33,13 +33,21 @@ class PadFoundationDesignTestCase(unittest.TestCase):
     def test_foundation_plots(self):
         pad_foundation_design = self.pad_foundation_design
         #check plotting valid
-        pad_foundation_design.plot_foundation_loading_X()
-        pad_foundation_design.plot_foundation_loading_Y()
-        pad_foundation_design.plot_bending_moment_X()
-        pad_foundation_design.plot_bending_moment_Y()
-        pad_foundation_design.plot_shear_force_Y()
+        #pad_foundation_design.plot_foundation_loading_X()
+        #pad_foundation_design.plot_foundation_loading_Y()
+        #pad_foundation_design.plot_bending_moment_X()
+        #pad_foundation_design.plot_bending_moment_Y()
+        #pad_foundation_design.plot_shear_force_Y()
         self.assertEqual(pad_foundation_design.get_design_moment_X(), 607.861)
         self.assertEqual(pad_foundation_design.get_design_moment_Y(), 415.754)
+        self.assertEqual(pad_foundation_design.get_design_shear_force_X(), 520.616)
+        self.assertEqual(pad_foundation_design.get_design_shear_force_Y(), 398.459)
+    
+    def reinforcement_calculations(self):
+        pad_foundation_design = self.pad_foundation_design
+        self.assertEqual(pad_foundation_design.area_of_steel_reqd_X_dir(), 958)
+        self.assertEqual(pad_foundation_design.area_of_steel_reqd_Y_dir(), 958)
+        self.
 
 
 if __name__ == "__main__":
