@@ -32,22 +32,42 @@ class PadFoundationDesignTestCase(unittest.TestCase):
 
     def test_foundation_plots(self):
         pad_foundation_design = self.pad_foundation_design
-        #check plotting valid
-        #pad_foundation_design.plot_foundation_loading_X()
-        #pad_foundation_design.plot_foundation_loading_Y()
-        #pad_foundation_design.plot_bending_moment_X()
-        #pad_foundation_design.plot_bending_moment_Y()
-        #pad_foundation_design.plot_shear_force_Y()
+        # check plotting valid
+        # pad_foundation_design.plot_foundation_loading_X()
+        # pad_foundation_design.plot_foundation_loading_Y()
+        # pad_foundation_design.plot_bending_moment_X()
+        # pad_foundation_design.plot_bending_moment_Y()
+        # pad_foundation_design.plot_shear_force_Y()
         self.assertEqual(pad_foundation_design.get_design_moment_X(), 607.861)
         self.assertEqual(pad_foundation_design.get_design_moment_Y(), 415.754)
         self.assertEqual(pad_foundation_design.get_design_shear_force_X(), 520.616)
         self.assertEqual(pad_foundation_design.get_design_shear_force_Y(), 398.459)
-    
-    def reinforcement_calculations(self):
+
+    def test_reinforcement_calculations(self):
         pad_foundation_design = self.pad_foundation_design
         self.assertEqual(pad_foundation_design.area_of_steel_reqd_X_dir(), 958)
-        self.assertEqual(pad_foundation_design.area_of_steel_reqd_Y_dir(), 958)
-        self.
+        self.assertEqual(pad_foundation_design.area_of_steel_reqd_Y_dir(), 747)
+        self.assertDictEqual(
+            pad_foundation_design.reinforcement_provision_flexure_X_dir(),
+            {
+                "steel_label": "H",
+                "bar_diameter": "16mm",
+                "bar_spacing": 200.0,
+                "area_provided": 1005,
+                "status": "Provide H16mm bars spaced at 200.0mm c/c bottom. The area provided is 1005mm²/m parallel to the 3.6m side",
+            },
+        )
+        self.assertDictEqual(
+            pad_foundation_design.reinforcement_provision_flexure_Y_dir(),
+            {
+                "steel_label": "H",
+                "bar_diameter": "12mm",
+                "bar_spacing": 150.0,
+                "area_provided": 754,
+                "status": "Provide H12mm bars spaced at 150.0mm c/c bottom. The area provided is 754mm²/m parallel to the 3.6m side",
+            },
+        )
+        
 
 
 if __name__ == "__main__":
