@@ -67,7 +67,33 @@ class PadFoundationDesignTestCase(unittest.TestCase):
                 "status": "Provide H12mm bars spaced at 150.0mm c/c bottom. The area provided is 754mm²/m parallel to the 3.6m side",
             },
         )
-        
+
+    def test_punching_shear(self):
+        pad_foundation_design = self.pad_foundation_design
+        self.assertDictEqual(
+            pad_foundation_design.punching_shear_column_face(),
+            {
+                "design_punching_shear_stress": 1.691468253968254,
+                "maximum_punching_shear_resistance": 4.488,
+                "status": "The maximum punching shear resistance of 4.488N/mm² exceeds the design punching shear stress of 1.691N/mm² - PASS!!!",
+            },
+        )
+        self.assertDictEqual(
+            pad_foundation_design.punching_shear_check_1d(),
+            {
+                "punching_shear_stress": 0.798,
+                "ved_design": 0.5876415001228639,
+                "status": "The maximum punching shear resistance of 0.798N/mm² exceeds the design punching shear stress of 0.588N/mm² - PASS!!!",
+            },
+        )
+        self.assertDictEqual(
+            pad_foundation_design.punching_shear_check_2d(),
+            {
+                "design_punching_shear_stress": 0.22247511396970102,
+                "shear_resistance_max": 0.399,
+                "status": "The maximum punching shear resistance of 0.399N/mm² exceeds the design punching shear stress of 0.222N/mm² - PASS!!!",
+            },
+        )
 
 
 if __name__ == "__main__":
