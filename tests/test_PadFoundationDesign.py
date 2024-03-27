@@ -95,6 +95,32 @@ class PadFoundationDesignTestCase(unittest.TestCase):
             },
         )
 
+    def test_sliding_transverse_checks(self):
+        pad_foundation_design = self.pad_foundation_design
+        self.assertDictEqual(
+            pad_foundation_design.tranverse_shear_check_Xdir(),
+            {
+                "design_shear_resistance": 609.792,
+                "status": "The design shear resistance of 609.792kN exceeds the design shear force of 520.616kN - PASS!!!",
+            },
+        )
+        self.assertDictEqual(
+            pad_foundation_design.tranverse_shear_check_Ydir(),
+            {
+                "design_shear_resistance": 739.123,
+                "status": "The design shear resistance of 739.123kN exceeds the design shear force of 398.459kN - PASS!!!",
+            },
+        )
+        self.assertDictEqual(
+            pad_foundation_design.sliding_resistance_check(),
+            {
+                "design_friction_angle": 0.349,
+                "sliding_resistance": 332.077,
+                "foundation_horizontal_force": 69.75,
+                "status": " The allowable sliding resistance 332kN is greater than the actual horizontal loads 70kN Status - PASS!!!",
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
