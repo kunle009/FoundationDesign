@@ -1748,9 +1748,11 @@ class padFoundationDesign(PadFoundation):
             (self.__reinforcement_calculations_Y_dir()[3]) / (1000 * self.dx * 1000), 5
         )
         vrd_c = shear_stress_check_1d(self.dy * 1000, py, self.fck)
-        Vrd_c = round ((
-            vrd_c * self.PadFoundation.foundation_length * 1000 * self.dx * 1000
-        ) / 1000, 3)
+        Vrd_c = round(
+            (vrd_c * self.PadFoundation.foundation_length * 1000 * self.dx * 1000)
+            / 1000,
+            3,
+        )
         if Vrd_c > design_shear_force:
             status = f"The design shear resistance of {round(Vrd_c,3)}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
         elif Vrd_c < design_shear_force:
@@ -2224,7 +2226,9 @@ class padFoundationDesign(PadFoundation):
         fdn_horizontal_force = ((force_x_direction**2) + (force_y_direction**2)) ** 0.5
         x = math.tan(math.radians(20)) / 1
         design_friction_angle = round(math.atan(x), 3)
-        sliding_resistance = round(force_z_direction * math.tan(design_friction_angle), 3)
+        sliding_resistance = round(
+            force_z_direction * math.tan(design_friction_angle), 3
+        )
         if sliding_resistance > fdn_horizontal_force:
             status = f" The allowable sliding resistance {round(sliding_resistance)}kN is greater than the actual horizontal loads {round(fdn_horizontal_force)}kN Status - PASS!!!"
         elif sliding_resistance < fdn_horizontal_force:
@@ -2257,6 +2261,6 @@ if __name__ == "__main__":
     fdn_design = padFoundationDesign(
         fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16
     )
-    #print(fdn_design.reinforcement_provision_flexure_X_dir())
-    #fdn_design.sliding_resistance_check()
-    #fdn_design.plot_foundation_loading_Y(show_plot=False)
+    # print(fdn_design.reinforcement_provision_flexure_X_dir())
+    # fdn_design.sliding_resistance_check()
+    # fdn_design.plot_foundation_loading_Y(show_plot=False)
