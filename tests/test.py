@@ -43,7 +43,7 @@ fdn_design = padFoundationDesign(
 #print(fdn_design.punching_shear_column_face())
 #print(fdn_design.punching_shear_check_1d())
 #print(fdn_design.punching_shear_check_2d())
-print(fdn_design.tranverse_shear_check_Xdir()
+print(fdn_design.tranverse_shear_check_Xdir())
 print(fdn_design.tranverse_shear_check_Ydir())
 print(fdn_design.sliding_resistance_check())
 
