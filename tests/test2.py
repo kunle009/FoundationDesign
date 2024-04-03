@@ -9,15 +9,15 @@ comb_footing = CombinedFootingAnalysis(
 comb_footing.update_column_1_geometry(
     column_length=300, column_width=300, col_pos_xdir=540, col_pos_ydir=1145
 )
-# Updating column 1 loads
+comb_footing.update_column_2_geometry(
+    column_length=400, column_width=400, col_pos_xdir=3540, col_pos_ydir=1145
+)
 comb_footing.update_column_1_axial_loads(
     permanent_axial_load=1000, imposed_axial_load=200
 )
-# Updating column 2 loads
 comb_footing.update_column_2_axial_loads(
     permanent_axial_load=1400, imposed_axial_load=300
 )
-# Update foundation loads
 comb_footing.foundation_loads(
     foundation_thickness=850,
     soil_depth_abv_foundation=0,
@@ -25,9 +25,8 @@ comb_footing.foundation_loads(
     concrete_unit_weight=24,
     consider_self_weight=False,
 )
-min_area = comb_footing.minimum_area_required()
-z = comb_footing.foundation_geometry_optimizer()
-# This would tell us the best position for the columns along the foundation geometry
+# min_area = comb_footing.minimum_area_required()
+# z = comb_footing.foundation_geometry_optimizer()
 comb_footing.plot_geometry()
 pres = comb_footing.pad_base_pressures_sls()
 print(pres)
