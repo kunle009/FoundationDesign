@@ -3,7 +3,8 @@
 
 [![PyPi](https://img.shields.io/pypi/v/FoundationDesign.svg)](https://pypi.org/project/FoundationDesign/)
 ![PyPI - License](https://img.shields.io/pypi/l/FoundationDesign)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/FoundationDesign)
+[![Downloads](https://static.pepy.tech/badge/foundationdesign)](https://pepy.tech/project/foundationdesign)
+[![Downloads](https://static.pepy.tech/badge/foundationdesign/month)](https://pepy.tech/project/foundationdesign)
 
 
 FoundationDesign is a python module to be used for the design and analysis
