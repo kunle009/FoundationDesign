@@ -14,7 +14,7 @@ setuptools.setup(
     version="0.0.6",
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
-    description=" A python module for structural analysis and design of different foundation type in accordance to the Eurocodes",
+    description="A python module for structural analysis and design of different foundation type in accordance to the Eurocodes",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
