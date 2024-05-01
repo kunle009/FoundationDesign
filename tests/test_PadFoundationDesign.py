@@ -1,5 +1,5 @@
 import unittest
-from FoundationDesign.foundationdesign import padFoundationDesign, PadFoundation
+from FoundationDesign import padFoundationDesign, PadFoundation
 
 
 class PadFoundationDesignTestCase(unittest.TestCase):
