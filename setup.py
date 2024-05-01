@@ -16,6 +16,7 @@ setup(
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
     description="A python module for structural analysis and design of different foundation types in accordance to the Eurocodes",
+    url = 'https://github.com/kunle009/FoundationDesign',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
