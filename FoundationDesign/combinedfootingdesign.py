@@ -84,10 +84,7 @@ class CombinedFootingAnalysis:
         soil_bearing_capacity : float, optional
             Represents the presumed bearing capacity of the foundation.
             (default unit kN/m2) The assumption here is that previous geotechnical calculations
-            must have been done to ascertain the soil bearing capacity. This tool cannot analyse
-            the bearing capacity in accordance to Eurocode 7. That can be easily done on
-            civils.ai website and thereafter the values of presumed bearing capacuty can be inputed
-            in here.
+            must have been done to ascertain the soil bearing capacity.
         spacing_btwn_columns : float, optional
             Represents the distance between the two columns along the x directions, by default
             1500mm.
