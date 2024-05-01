@@ -162,9 +162,7 @@ class PadFoundation:
             (default unit mm). This value should not be greater than the foundation width.
         soil_bearing_capacity : float, default 150
             Represents the presumed bearing capacity of the foundation.(default unit kN/m2) The assumption here is
-            that previous geotechnical calculations must have been done to ascertain the soil bearing capacity. This tool
-            cannot analyse the bearing capacity in accordance to Eurocode 7. That can be easily done on civils.ai website and
-            thereafter the values of presumed bearing capacuty can be inputed in here.
+            that previous geotechnical calculations must have been done to ascertain the soil bearing capacity.
         """
         # data validation for inputs
         assert_strictly_positive_number(foundation_length, "foundation_length")
