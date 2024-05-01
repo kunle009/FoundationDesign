@@ -27,3 +27,4 @@ foundation_design_script.py
 .venv
 .pytest_cache
 .vscode/settings.json
+.idea
