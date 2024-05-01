@@ -12,10 +12,10 @@ with open("requirements.txt", "r") as fh:
 setup(
     name="FoundationDesign",
     packages=find_packages("FoundationDesign"),
-    version="0.0.6",
+    version="0.0.7",
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
-    description="A python module for structural analysis and design of different foundation type in accordance to the Eurocodes",
+    description="A python module for structural analysis and design of different foundation types in accordance to the Eurocodes",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
