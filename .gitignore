@@ -28,3 +28,4 @@ foundation_design_script.py
 .pytest_cache
 .vscode/settings.json
 .idea
+.vscode
