@@ -67,3 +67,9 @@ Pad Foundation Design
 .. autofunction:: FoundationDesign.padFoundationDesign.punching_shear_column_face
 .. autofunction:: FoundationDesign.padFoundationDesign.punching_shear_check_1d
 .. autofunction:: FoundationDesign.padFoundationDesign.punching_shear_check_2d
+
+
+Combined Pad Foundation Analysis
+-----------------------
+.. autoclass:: FoundationDesign.CombinedFootingAnalysis
+.. autofunction:: FoundationDesign.CombinedFootingAnalysis.__init__
