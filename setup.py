@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 
 
@@ -11,12 +11,12 @@ with open("requirements.txt", "r") as fh:
 
 setup(
     name="FoundationDesign",
-    packages=find_packages("FoundationDesign"),
-    version="0.0.7",
+    packages=["FoundationDesign"],
+    version="0.0.8",
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
     description="A python module for structural analysis and design of different foundation types in accordance to the Eurocodes",
-    url = 'https://github.com/kunle009/FoundationDesign',
+    url="https://github.com/kunle009/FoundationDesign",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
