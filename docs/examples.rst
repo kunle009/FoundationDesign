@@ -5,7 +5,7 @@
 
 This section demonstrates the core functionality of the ``FoundationDesign` package with examples. Examples were taken from textbooks by Prab Bhatt and Mosley and Bungey.
 
-You can follow along with examples online: |colab| |binder|
+You can follow along with examples online: |colab|
 
 .. |colab| image:: https://colab.research.google.com/assets/colab-badge.svg
    :target: https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Combined_Footing_Mosley_bungey.ipynb
