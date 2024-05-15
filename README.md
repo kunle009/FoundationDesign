@@ -29,9 +29,9 @@ examples are contained in the examples folder
 ## Project Purpose
 
 1. Create a free python package that can analyse and design pad foundation,combined footing foundation,
-    pile foundation and/or raft foundation design.
+    pile foundation and raft foundation design.
 
-2. Create the web version of this module.
+2. Create the web app for the structural design of foundations.
 
 ## Functionality and usage
 
@@ -124,7 +124,7 @@ If you want to install the `FoundationDesign` package, you run this one-liner:
 **NOTE**: You need Python 3 to install this package (you may need to write `pip3` instead of `pip`).
 
 The library dependencies are listed in the file `requirements.txt`, but you only need to look at them if you clone the repository.
-If you install the package via `pip`, the listed dependencies should be installed automatically.
+If you install the package via `pip`, the listed dependencies should be installed automatically. You need a minimum of python version 3.8 to use this library.
 
 ## Future Works
 
