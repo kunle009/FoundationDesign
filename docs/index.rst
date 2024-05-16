@@ -17,7 +17,6 @@ Welcome to FoundationDesign's documentation!
    :alt: build-and-test
 
 
-
 ``FoundationDesign`` FoundationDesign is a python module to be used for the design and analysis
 of different foundation types in accordance to the Eurocode 2.
 This project is an attempt to have a free standalone python package that can
