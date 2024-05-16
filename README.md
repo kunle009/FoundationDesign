@@ -7,6 +7,7 @@
 [![Downloads](https://static.pepy.tech/badge/foundationdesign/month)](https://pepy.tech/project/foundationdesign)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/FoundationDesign)
 [![build & test](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml)
+[![Documentation Status](https://readthedocs.org/projects/foundationdesign/badge/?version=latest)](https://foundationdesign.readthedocs.io/en/latest/?badge=latest)
 
 
 FoundationDesign is a python module to be used for the design and analysis
