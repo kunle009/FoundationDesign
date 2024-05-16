@@ -5,6 +5,18 @@
 
 Welcome to FoundationDesign's documentation!
 ============================================
+.. image:: https://img.shields.io/pypi/v/FoundationDesign
+   :alt: PyPI - Version
+.. image:: https://img.shields.io/pypi/l/FoundationDesign
+   :alt: PyPI - License
+.. image:: https://static.pepy.tech/badge/foundationdesign
+   :alt: PEPY - downloads
+.. image:: https://static.pepy.tech/badge/foundationdesign/month
+   :alt: PEPY - downloads-month
+.. image:: https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml/badge.svg?branch=main
+   :alt: build-and-test
+
+
 
 ``FoundationDesign`` FoundationDesign is a python module to be used for the design and analysis
 of different foundation types in accordance to the Eurocode 2.

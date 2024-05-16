@@ -4,12 +4,11 @@
 First steps
 ===========
 
-* The easiest way to try this package is using a web-based notebook:
+* The easiest way to try this package for now is using a web-based notebook:
+* Here's an example featuring the design of a concentric pad foundation
 
-|colab|
-
-.. |colab| image:: https://colab.research.google.com/assets/colab-badge.svg
-   :target: https://colab.research.google.com/github/JesseBonanno/FoundationDesign/blob/main/docs/examples/simple_demo.ipynb
+.. image:: https://colab.research.google.com/assets/colab-badge.svg
+   :target: https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Concentric_Footing_Example.ipynb
 
 * You can also download and install the ``FoundationDesign`` package, which runs on Python 3.
 
