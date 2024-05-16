@@ -5,7 +5,7 @@
 ![PyPI - License](https://img.shields.io/pypi/l/FoundationDesign)
 [![Downloads](https://static.pepy.tech/badge/foundationdesign)](https://pepy.tech/project/foundationdesign)
 [![Downloads](https://static.pepy.tech/badge/foundationdesign/month)](https://pepy.tech/project/foundationdesign)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/:FoundationDesign)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/FoundationDesign)
 [![build & test](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml)
 
 
