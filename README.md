@@ -36,7 +36,7 @@ Text-based examples of the package presented in the [documentation](http://found
 1. Create a free python package that can analyse and design pad foundation,combined footing foundation,
     pile foundation and raft foundation design.
 
-2. Create the web app for the structural design of foundations.
+2. Create a comprehensive web app for the structural design of foundations.
 
 ## Functionality and usage
 
