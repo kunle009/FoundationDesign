@@ -1,4 +1,3 @@
-
 # FoundationDesign
 
 [![PyPi](https://img.shields.io/pypi/v/FoundationDesign.svg)](https://pypi.org/project/FoundationDesign/)
@@ -8,7 +7,6 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/FoundationDesign)
 [![build & test](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml)
 [![Documentation Status](https://readthedocs.org/projects/foundationdesign/badge/?version=latest)](https://foundationdesign.readthedocs.io/en/latest/?badge=latest)
-
 
 FoundationDesign is a python module to be used for the design and analysis
 of different foundation types in accordance to the Eurocode 2.
@@ -26,7 +24,7 @@ This module will be useful in determining:
 
 The project is based mainly on instructions contained in the Eurocode 2
 alongside python packages like numpy,plotly,scipy and IndeterminateBeam package. Comprehensive
-examples are contained in the examples folder. 
+examples are contained in the examples folder.
 The full package documentation can be accessed [here](http://foundationdesign.readthedocs.io/).
 
 Text-based examples of the package presented in the [documentation](http://foundationdesign.readthedocs.io/en/latest/examples.html) includes [Concentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Concentric_Footing_Example.ipynb), [Eccentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Eccentric_Footing_Example.ipynb) and a [Combined Footing Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Combined_Footing_Mosley_bungey.ipynb). A web-based graphical user interface (GUI) is currently in development.
@@ -34,14 +32,14 @@ Text-based examples of the package presented in the [documentation](http://found
 ## Project Purpose
 
 1. Create a free python package that can analyse and design pad foundation,combined footing foundation,
-    pile foundation and raft foundation design.
+   pile foundation and raft foundation design.
 
 2. Create a comprehensive web app for the structural design of foundations.
 
 ## Functionality and usage
 
 For now this package is limited to only concentric and eccentric pad foundation and combined footing foundation types.
-A typical use case of the pad foundation class contained in the ```FoundationDesign``` module includes
+A typical use case of the pad foundation class contained in the `FoundationDesign` module includes
 
 - Create a `PadFoundation` object to help analyse
 - Assign `foundation_loads` to the `PadFoundation`
@@ -64,13 +62,13 @@ A typical use case of the pad foundation class contained in the ```FoundationDes
 
 The creation of a `PadFoundation` instance involves the input of the following:
 
-1. Foundation Length in mm
-2. Foundation Width in mm
-3. Column Length in mm
-4. Column Width in mm
-5. The position of the column along x direction from the origin in mm
-6. The position of the column along y direction from the origin in mm
-7. The soil bearing capacity in kN/mm2
+1.  Foundation Length in mm
+2.  Foundation Width in mm
+3.  Column Length in mm
+4.  Column Width in mm
+5.  The position of the column along x direction from the origin in mm
+6.  The position of the column along y direction from the origin in mm
+7.  The soil bearing capacity in kN/mm2
 
         from foundationdesign import PadFoundation,padFoundationDesign
         fdn = PadFoundation(foundation_length=2500,foundation_width=2500,column_length=400,column_width=400,col_pos_xdir=1250,col_pos_ydir=1250,soil_bearing_capacity=200)
@@ -92,17 +90,17 @@ can all be added to the pad foundation for permanent,imposed and wind load cases
 
 ## Designing a pad foundation
 
-To design the foundation the ```PadFoundation``` must first be created as done above
-this would then be included when creating the ```padFoundationDesign``` object
+To design the foundation the `PadFoundation` must first be created as done above
+this would then be included when creating the `padFoundationDesign` object
 The creation of this object includes the following:
 
-1. PadFoundation object created
-2. Characteristic compressive cylinder strength in N/mm2. Accepted range of values [16,20,25,30,32,35,37,40,45,55]
-3. Characteristic yield strength of reinforcement in N/mm2
-4. Nominal cover to foundation in mm
-5. Initial assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
-   used to calculate depth to tension reinforcement along the x direction
-6. Initial assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
+1.  PadFoundation object created
+2.  Characteristic compressive cylinder strength in N/mm2. Accepted range of values [16,20,25,30,32,35,37,40,45,55]
+3.  Characteristic yield strength of reinforcement in N/mm2
+4.  Nominal cover to foundation in mm
+5.  Initial assumed bar diameter of the foundation in the x direction in mm. Accepted range of values [8,10,12,16,20,25,32,40]
+    used to calculate depth to tension reinforcement along the x direction
+6.  Initial assumed bar diameter of the foundation in the y direction in mm Accepted range of values [8,10,12,16,20,25,32,40]
     used to calculate depth to tension reinforcement along the y direction
 
         fdn_design = padFoundationDesign(fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16)
@@ -110,11 +108,12 @@ The creation of this object includes the following:
 ## Plotting Foundation forces
 
 Lots of checks can be done on the Foundation which can be found in the notebooks contained in the examples folder
-To show the bending moment of the Foundation. The ```plot_bending_moment_X()``` can be called this figure will show the
+To show the bending moment of the Foundation. The `plot_bending_moment_X()` can be called this figure will show the
 bending moment values at the critical location along the Foundation length or width. Plotting methods takes a show_plot argument which can either be True or False. which by default is True
 
     fdn_design.plot_bending_moment_X()
     fdn_design.plot_shear_force_X()
+
 This outputs the bending moment plot with the design bending moment shown at the face of the column
 ![Image](https://github.com/kunle009/FoundationDesign/blob/main/assets/bending_moment1.png?raw=true)
 The shear force plot is also displayed with critical shearforce showing at 1d from column the face
