@@ -12,7 +12,7 @@ with open("requirements.txt", "r") as fh:
 setup(
     name="FoundationDesign",
     packages=["FoundationDesign"],
-    version="0.0.9",
+    version="0.1.0",
     author="Kunle Yusuf",
     author_email="kunleyusuf858@gmail.com",
     description="A python module for structural analysis and design of different foundation types in accordance to the Eurocodes",
