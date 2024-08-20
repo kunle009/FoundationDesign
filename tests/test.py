@@ -37,15 +37,15 @@ fdn_design = padFoundationDesign(
 # print(fdn_design.get_design_shear_force_X())
 # print(fdn_design.area_of_steel_reqd_X_dir())
 # print(fdn_design.area_of_steel_reqd_Y_dir())
-# print(fdn_design.reinforcement_provision_flexure_X_dir())
-# print(fdn_design.reinforcement_provision_flexure_Y_dir())
+print(fdn_design.reinforcement_provision_flexure_X_dir())
+print(fdn_design.reinforcement_provision_flexure_Y_dir())
 
 #print(fdn_design.punching_shear_column_face())
 #print(fdn_design.punching_shear_check_1d())
 #print(fdn_design.punching_shear_check_2d())
-print(fdn_design.tranverse_shear_check_Xdir())
-print(fdn_design.tranverse_shear_check_Ydir())
-print(fdn_design.sliding_resistance_check())
+#print(fdn_design.tranverse_shear_check_Xdir())
+#print(fdn_design.tranverse_shear_check_Ydir())
+#print(fdn_design.sliding_resistance_check())
 
 
 # outputs

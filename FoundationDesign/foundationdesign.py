@@ -1613,7 +1613,7 @@ class padFoundationDesign(PadFoundation):
         result = reinforcement_provision(as_required, self.fyk)
         return result
 
-    def reinforcement_provision_flexure_X_dir(self):
+    def reinforcement_provision_flexure_X_dir(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the x direction of the foundation
 
@@ -1630,6 +1630,14 @@ class padFoundationDesign(PadFoundation):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
+        
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print("Invalid input for user-provided area. Using the default calculated area.")
+                
         return {
             "steel_label": steel_label,
             "bar_diameter": bar_dia,
@@ -1682,7 +1690,7 @@ class padFoundationDesign(PadFoundation):
         result = reinforcement_provision(as_required, self.fyk)
         return result
 
-    def reinforcement_provision_flexure_Y_dir(self):
+    def reinforcement_provision_flexure_Y_dir(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the y direction of the foundation
 
@@ -1699,6 +1707,12 @@ class padFoundationDesign(PadFoundation):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print("Invalid input for user-provided area. Using the default calculated area.")
         return {
             "steel_label": steel_label,
             "bar_diameter": bar_dia,
