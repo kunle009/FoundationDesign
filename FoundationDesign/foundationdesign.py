@@ -1,5 +1,5 @@
 """
-Main module that contains the main class for Pad foundation analysis 
+Main module that contains the main class for Pad foundation analysis
 and auxillary class for Pad foundation design.
 """
 
@@ -1630,14 +1630,16 @@ class padFoundationDesign(PadFoundation):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        
+
         if area_of_steel_provided is not None:
             try:
                 user_provided_area = float(area_of_steel_provided)
                 area_provided = user_provided_area
             except ValueError:
-                print("Invalid input for user-provided area. Using the default calculated area.")
-                
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
+
         return {
             "steel_label": steel_label,
             "bar_diameter": bar_dia,
@@ -1712,7 +1714,9 @@ class padFoundationDesign(PadFoundation):
                 user_provided_area = float(area_of_steel_provided)
                 area_provided = user_provided_area
             except ValueError:
-                print("Invalid input for user-provided area. Using the default calculated area.")
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
         return {
             "steel_label": steel_label,
             "bar_diameter": bar_dia,
