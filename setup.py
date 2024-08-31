@@ -1,6 +1,4 @@
 from setuptools import setup
-import os
-
 
 # store readme.md files
 with open("README.md", "r") as fh:
