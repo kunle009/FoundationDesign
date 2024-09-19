@@ -134,6 +134,8 @@ If you install the package via `pip`, the listed dependencies should be installe
 
 The following are areas that will be implemented in future:
 
-- PDF report generation
-- User documentation
-- A comprehensive web app for analysis and design of foundations
+- [ ] PDF report generation
+- [x] User documentation
+- [ ] A comprehensive web app for analysis and design of foundations
+- [ ] Strip Footing Design (Eurocode 2)
+- [ ] Strap Footing Design (Eurocode 2)
