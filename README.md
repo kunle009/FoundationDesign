@@ -139,3 +139,4 @@ The following are areas that will be implemented in future:
 - [ ] A comprehensive web app for analysis and design of foundations
 - [ ] Strip Footing Design (Eurocode 2)
 - [ ] Strap Footing Design (Eurocode 2)
+- [ ] API Support
