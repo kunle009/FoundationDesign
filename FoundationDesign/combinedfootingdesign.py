@@ -10,7 +10,13 @@ import operator
 # Third Party Imports
 import numpy as np
 import plotly.graph_objs as go
-from indeterminatebeam import Beam, Support, TrapezoidalLoadV, DistributedLoadV,PointLoad
+from indeterminatebeam import (
+    Beam,
+    Support,
+    TrapezoidalLoadV,
+    DistributedLoadV,
+    PointLoad,
+)
 
 # Local Application Imports
 from FoundationDesign.datavalidation import (
@@ -676,7 +682,7 @@ class CombinedFootingAnalysis:
         soil_depth_abv_foundation: float = 500,
         soil_unit_weight: float = 18,
         concrete_unit_weight: float = 24,
-        consider_self_weight:bool = True 
+        consider_self_weight: bool = True,
     ):
         """
         Calculates the foundation self weight which includes the soil weight above the foundation
@@ -730,18 +736,21 @@ class CombinedFootingAnalysis:
         assert_input_limit(concrete_unit_weight, 0, "Concrete Unit Weight")
 
         if self.consider_self_weight:
-            foundation_self_weight = self.foundation_thickness * self.concrete_unit_weight
+            foundation_self_weight = (
+                self.foundation_thickness * self.concrete_unit_weight
+            )
             soil_weight = self.soil_depth_abv_foundation * self.soil_unit_weight
-            x = round(foundation_self_weight, 3), round(soil_weight, 3)
-            return list(x)
+            foundation_loads = round(foundation_self_weight, 3), round(soil_weight, 3)
+            return list(foundation_loads)
         else:
-            foundation_self_weight = self.foundation_thickness * self.concrete_unit_weight
+            foundation_self_weight = (
+                self.foundation_thickness * self.concrete_unit_weight
+            )
             soil_weight = self.soil_depth_abv_foundation * self.soil_unit_weight
-            x = 0.00, round(soil_weight, 3)
-            return list(x)
-    
-    
-    def plot_geometry(self):
+            foundation_loads = 0.00, round(soil_weight, 3)
+            return list(foundation_loads)
+
+    def plot_geometry(self, show_plot=True):
         """Plots the geometry of the foundation, showing the column position relative to the pad base"""
         fig_plan = go.Figure()
         y = [0, 0, self.foundation_width, self.foundation_width, 0]
@@ -802,7 +811,10 @@ class CombinedFootingAnalysis:
         fig_plan.update_layout(
             title_text="FOOTING PLAN", width=500, height=500, showlegend=True
         )
-        fig_plan.show()
+        if show_plot:
+            fig_plan.show()
+        else:
+            return fig_plan
 
     def area_of_foundation(self):
         """
@@ -859,7 +871,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         return sum(self.column_1_axial_loads + self.column_2_axial_loads) + (
             self.area_of_foundation() * (fdn_loads[0] + fdn_loads[1])
@@ -880,7 +892,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         Mdx_column_1 = (
             (
@@ -930,7 +942,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         Mdy_column_1 = (
             (
@@ -1113,14 +1125,14 @@ class CombinedFootingAnalysis:
         if (minimum_pad_pressure <= self.soil_bearing_capacity) and (
             maximum_pad_pressure <= self.soil_bearing_capacity
         ):
-            status = print(
-                "PASS - Presumed bearing capacity exceeds design base pressure"
-            )
+            status = "PASS - Presumed bearing capacity exceeds design base pressure"
         else:
-            status = print(
-                "Fail - Presumed bearing capacity lesser than design base pressure"
-            )
-        return status
+            status = "Fail - Presumed bearing capacity lesser than design base pressure"
+        return {
+            "minimum_pad_pressure": minimum_pad_pressure,
+            "maximum_pad_pressure": maximum_pad_pressure,
+            "status": status,
+        }
 
     def minimum_area_required_wt_moment(self):
         """
@@ -1142,7 +1154,7 @@ class CombinedFootingAnalysis:
                 self.soil_depth_abv_foundation * 1000,
                 self.soil_unit_weight,
                 self.concrete_unit_weight,
-                self.consider_self_weight
+                self.consider_self_weight,
             )
             total_force_Z_direction = sum(
                 self.column_1_axial_loads + self.column_2_axial_loads
@@ -1215,7 +1227,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         total_force_Z_direction = sum(
             self.column_1_axial_loads + self.column_2_axial_loads
@@ -1257,7 +1269,7 @@ class CombinedFootingAnalysis:
                     self.soil_depth_abv_foundation * 1000,
                     self.soil_unit_weight,
                     self.concrete_unit_weight,
-                    self.consider_self_weight
+                    self.consider_self_weight,
                 )
                 total_force_Z_direction = sum(
                     self.column_1_axial_loads + self.column_2_axial_loads
@@ -1316,7 +1328,7 @@ class CombinedFootingAnalysis:
                     self.soil_depth_abv_foundation * 1000,
                     self.soil_unit_weight,
                     self.concrete_unit_weight,
-                    self.consider_self_weight
+                    self.consider_self_weight,
                 )
                 Mdy = (
                     (x * y * (fdn_loads[0] + fdn_loads[1]) * (y / 2))
@@ -1369,9 +1381,12 @@ class CombinedFootingAnalysis:
             formatted_col_positions = list(np.around(np.array(new_col_positions), 4))
             return formatted_col_positions
         except ValueError:
-            return "The geometry cannot be optimized by this algorithm."
+            foundation_geometry_optimizer_status = (
+                "The geometry cannot be optimized by this algorithm."
+            )
+            return foundation_geometry_optimizer_status
 
-    def plot_optimized_geometry(self):
+    def plot_optimized_geometry(self, show_plot=True):
         """
         Plots the optimized geometry.
 
@@ -1448,8 +1463,11 @@ class CombinedFootingAnalysis:
             fig_plan.update_layout(
                 title_text="FOOTING PLAN", width=500, height=500, showlegend=True
             )
-            fig_plan.show()
-        except:
+            if show_plot:
+                fig_plan.show()
+            else:
+                return fig_plan
+        except ValueError:
             return self.plot_geometry()
 
     def total_force_X_dir_uls(self):
@@ -1516,7 +1534,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         foundation_loads = [sum(fdn_loads) * self.area_of_foundation(), 0, 0]
         partial_factor_set = [
@@ -1532,7 +1550,7 @@ class CombinedFootingAnalysis:
         ]
         total_loads = np.sum(np.multiply(partial_factor_set, load_sum))
         return total_loads
-    
+
     def total_axial_force_uls(self):
         """
         Calculates the total axial force at ultimate limit states of 1.35gk + 1.5qk + 1.5wk
@@ -1549,10 +1567,13 @@ class CombinedFootingAnalysis:
             self.uls_strength_factor_imposed,
             self.uls_strength_factor_imposed,
         ]
-        load_sum_col1 = np.sum(np.multiply(partial_factor_set,self.column_1_axial_loads))
-        load_sum_col2 = np.sum(np.multiply(partial_factor_set,self.column_2_axial_loads))
-        return [load_sum_col1,load_sum_col2]
-
+        load_sum_col1 = np.sum(
+            np.multiply(partial_factor_set, self.column_1_axial_loads)
+        )
+        load_sum_col2 = np.sum(
+            np.multiply(partial_factor_set, self.column_2_axial_loads)
+        )
+        return [load_sum_col1, load_sum_col2]
 
     def total_moments_X_direction_uls(self):
         """
@@ -1569,7 +1590,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         Mdx_column_1 = (
             self.uls_strength_factor_permanent
@@ -1630,7 +1651,7 @@ class CombinedFootingAnalysis:
             self.soil_depth_abv_foundation * 1000,
             self.soil_unit_weight,
             self.concrete_unit_weight,
-            self.consider_self_weight
+            self.consider_self_weight,
         )
         Mdy_column_1 = (
             self.uls_strength_factor_permanent
@@ -1969,15 +1990,23 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             self.CombinedFootingAnalysis.soil_depth_abv_foundation * 1000,
             self.CombinedFootingAnalysis.soil_unit_weight,
             self.CombinedFootingAnalysis.concrete_unit_weight,
-            self.CombinedFootingAnalysis.consider_self_weight
+            self.CombinedFootingAnalysis.consider_self_weight,
         )
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_width * 1000
         ) * self.CombinedFootingAnalysis.uls_strength_factor_permanent
         p1 = self.CombinedFootingAnalysis.total_axial_force_uls()[0] * 1000
         p2 = self.CombinedFootingAnalysis.total_axial_force_uls()[1] * 1000
-        point_load_1 = PointLoad(force=p1.item(), coord=self.CombinedFootingAnalysis.column_1_geometry[2], angle=-90)
-        point_load_2 = PointLoad(force=p2.item(), coord=self.CombinedFootingAnalysis.column_2_geometry[2], angle=-90)
+        point_load_1 = PointLoad(
+            force=p1.item(),
+            coord=self.CombinedFootingAnalysis.column_1_geometry[2],
+            angle=-90,
+        )
+        point_load_2 = PointLoad(
+            force=p2.item(),
+            coord=self.CombinedFootingAnalysis.column_2_geometry[2],
+            angle=-90,
+        )
         if left_load != right_load:
             foundation_load1 = TrapezoidalLoadV(
                 force=(left_load, right_load),
@@ -1991,9 +2020,11 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load2 = DistributedLoadV(
                 -udl, span=(0, self.CombinedFootingAnalysis.foundation_length)
             )
-            foundation.add_loads(foundation_load1, foundation_load2,point_load_1,point_load_2)
+            foundation.add_loads(
+                foundation_load1, foundation_load2, point_load_1, point_load_2
+            )
         elif sum(fdn_loads) == 0.00:
-            foundation.add_loads(foundation_load1,point_load_1,point_load_2)
+            foundation.add_loads(foundation_load1, point_load_1, point_load_2)
         return foundation
 
     def __loading_diagrams_Y_dir(self):
@@ -2035,12 +2066,20 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             self.CombinedFootingAnalysis.soil_depth_abv_foundation * 1000,
             self.CombinedFootingAnalysis.soil_unit_weight,
             self.CombinedFootingAnalysis.concrete_unit_weight,
-            self.CombinedFootingAnalysis.consider_self_weight
+            self.CombinedFootingAnalysis.consider_self_weight,
         )
         p1 = self.CombinedFootingAnalysis.total_axial_force_uls()[0] * 1000
         p2 = self.CombinedFootingAnalysis.total_axial_force_uls()[1] * 1000
-        point_load_1 = PointLoad(force=p1.item(), coord=self.CombinedFootingAnalysis.column_1_geometry[3], angle=-90)
-        point_load_2 = PointLoad(force=p2.item(), coord=self.CombinedFootingAnalysis.column_2_geometry[3], angle=-90)
+        point_load_1 = PointLoad(
+            force=p1.item(),
+            coord=self.CombinedFootingAnalysis.column_1_geometry[3],
+            angle=-90,
+        )
+        point_load_2 = PointLoad(
+            force=p2.item(),
+            coord=self.CombinedFootingAnalysis.column_2_geometry[3],
+            angle=-90,
+        )
         udl = (
             (sum(fdn_loads)) * self.CombinedFootingAnalysis.foundation_length * 1000
         ) * self.CombinedFootingAnalysis.uls_strength_factor_permanent
@@ -2057,12 +2096,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation_load2 = DistributedLoadV(
                 -udl, span=(0, self.CombinedFootingAnalysis.foundation_width)
             )
-            foundation.add_loads(foundation_load1, foundation_load2, point_load_1,point_load_2)
+            foundation.add_loads(
+                foundation_load1, foundation_load2, point_load_1, point_load_2
+            )
         elif sum(fdn_loads) == 0.00:
-            foundation.add_loads(foundation_load1, point_load_1,point_load_2)
+            foundation.add_loads(foundation_load1, point_load_1, point_load_2)
         return foundation
 
-    def plot_foundation_loading_X(self):
+    def plot_foundation_loading_X(self, show_plot=True):
         """
         Shows the load acting on the foundation in the X direction this consists
         of the soil loads and concrete own load acting as a udl over the foundation
@@ -2073,9 +2114,12 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         fig = foundationx.plot_beam_diagram()
         fig.layout.title.text = "Foundation schematic (length)"
         fig.layout.xaxis.title.text = "Foundation length"
-        fig.show()
+        if show_plot:
+            fig.show()
+        else:
+            return fig
 
-    def plot_foundation_loading_Y(self):
+    def plot_foundation_loading_Y(self, show_plot=True):
         """
         Shows the load acting on the foundation in the Y direction this consists of the soil
         loads and concrete own load acting as a udl over the foundation width and a soil
@@ -2085,9 +2129,12 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         fig = foundationy.plot_beam_diagram()
         fig.layout.title.text = "Foundation schematic (width)"
         fig.layout.xaxis.title.text = "Foundation width"
-        fig.show()
+        if show_plot:
+            fig.show()
+        else:
+            return fig
 
-    def plot_bending_moment_X(self):
+    def plot_bending_moment_X(self, show_plot=True):
         """
         Plots the foundation bending moment diagram along X direction showing the design
         moment at the face of the column.
@@ -2113,9 +2160,12 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         foundation.add_query_points(point_1, point_2, point_3, point_4)
         fig1 = foundation.plot_bending_moment(reverse_y=True)
         fig1.layout.xaxis.title.text = "Foundation length"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
-    def plot_bending_moment_Y(self):
+    def plot_bending_moment_Y(self, show_plot=True):
         """Plot the foundation bending moment diagram along Y direction showing the design moment
         at the face of the column"""
         foundation = self.__loading_diagrams_Y_dir()
@@ -2152,9 +2202,12 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation.add_query_points(point_1, point_2, point_3, point_4)
         fig2 = foundation.plot_bending_moment(reverse_y=True)
         fig2.layout.xaxis.title.text = "Foundation width"
-        fig2.show()
+        if show_plot:
+            fig2.show()
+        else:
+            return fig2
 
-    def plot_shear_force_X(self):
+    def plot_shear_force_X(self, show_plot=True):
         """
         Plots the foundation shear force diagram along X direction showing the design
         shear force at a distance 1d from the column face.
@@ -2180,9 +2233,12 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         foundation.add_query_points(*filtered_query_point_list)
         fig1 = foundation.plot_shear_force()
         fig1.layout.xaxis.title.text = "Foundation length"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
-    def plot_shear_force_Y(self):
+    def plot_shear_force_Y(self, show_plot=True):
         """
         Plots the foundation shear force diagram along Y direction showing the design
         shear force at a distance 1d from the column face.
@@ -2223,7 +2279,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             foundation.add_query_points(*filtered_query_point_list)
         fig1 = foundation.plot_shear_force()
         fig1.layout.xaxis.title.text = "Foundation Width"
-        fig1.show()
+        if show_plot:
+            fig1.show()
+        else:
+            return fig1
 
     def get_design_moment_X(self):
         """
@@ -2239,7 +2298,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         """
         foundation = self.__loading_diagrams_X_dir()
         foundation.analyse()
-        point_1 = ( 
+        point_1 = (
             self.CombinedFootingAnalysis.column_1_geometry[2]
             - self.CombinedFootingAnalysis.column_1_geometry[0] / 2
         )
@@ -2453,7 +2512,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             result.append(reinforcement_provision(as_required[i], self.fyk))
         return result
 
-    def reinforcement_prov_flexure_X_dir_TOP(self):
+    def reinforcement_prov_flexure_X_dir_TOP(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the x direction of the foundation
 
@@ -2473,9 +2532,25 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_length}m side"
 
-    def reinforcement_prov_flexure_X_dir_Bottom(self):
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
+
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_length}m side",
+        }
+
+    def reinforcement_prov_flexure_X_dir_Bottom(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the x direction of the foundation
 
@@ -2495,9 +2570,23 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c BOTTOM .\
-            The area provided is {area_provided}mm\u00b2/m parallel to the \
-                {self.CombinedFootingAnalysis.foundation_length}m side"
+
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
+
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c BOTTOM.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_length}m side",
+        }
 
     def area_of_steel_reqd_Y_dir(self):
         """
@@ -2553,7 +2642,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             result.append(reinforcement_provision(as_required[i], self.fyk))
         return result
 
-    def reinforcement_prov_flexure_Y_dir_Top(self):
+    def reinforcement_prov_flexure_Y_dir_Top(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the y direction of the foundation
 
@@ -2573,11 +2662,25 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP. \
-            The area provided is {area_provided}mm\u00b2/m parallel to the \
-                {self.CombinedFootingAnalysis.foundation_width}m side"
 
-    def reinforcement_prov_flexure_Y_dir_Bottom(self):
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
+
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c TOP. The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side",
+        }
+
+    def reinforcement_prov_flexure_Y_dir_Bottom(self, area_of_steel_provided=None):
         """
         Calculates the area of steel to be provided along the y direction of the foundation
 
@@ -2597,7 +2700,23 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         bar_dia = steel_bars[1]
         bar_spacing = steel_bars[2]
         area_provided = steel_bars[3]
-        return f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c Bottom.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side"
+
+        if area_of_steel_provided is not None:
+            try:
+                user_provided_area = float(area_of_steel_provided)
+                area_provided = user_provided_area
+            except ValueError:
+                print(
+                    "Invalid input for user-provided area. Using the default calculated area."
+                )
+
+        return {
+            "steel_label": steel_label,
+            "bar_diameter": bar_dia,
+            "bar_spacing": bar_spacing,
+            "area_provided": area_provided,
+            "status": f"Provide {steel_label}{bar_dia} bars spaced at {bar_spacing}mm c/c Bottom.The area provided is {area_provided}mm\u00b2/m parallel to the {self.CombinedFootingAnalysis.foundation_width}m side",
+        }
 
     def tranverse_shear_check_Xdir(self):
         """
@@ -2626,11 +2745,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             3,
         )
         if Vrd_c > design_shear_force:
-            return f"The design shear resistance of {Vrd_c}kN exceeds the design\
-                shear force of {design_shear_force}kN - PASS!!!"
+            status = f"The design shear resistance of {Vrd_c}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
         elif Vrd_c < design_shear_force:
-            return f"The design shear resistance of {Vrd_c}kN is less than design \
-                shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+            status = f"The design shear resistance of {Vrd_c}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+        return {"design_shear_resistance": Vrd_c, "status": status}
 
     def tranverse_shear_check_Ydir(self):
         """
@@ -2655,11 +2773,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             * 1000
         ) / 1000
         if Vrd_c > design_shear_force:
-            return f"The design shear resistance of {round(Vrd_c,3)}kN exceeds the design \
-                shear force of {design_shear_force}kN - PASS!!!"
+            status = f"The design shear resistance of {round(Vrd_c,3)}kN exceeds the design shear force of {design_shear_force}kN - PASS!!!"
         elif Vrd_c < design_shear_force:
-            return f"The design shear resistance of {round(Vrd_c,3)}kN is less than design\
-                shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+            status = f"The design shear resistance of {round(Vrd_c,3)}kN is less than design shear force of {design_shear_force}kN - FAIL!!!, INCREASE DEPTH"
+        return {"design_shear_resistance": Vrd_c, "status": status}
 
     def __punching_shear(self):
         """
@@ -2749,11 +2866,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         )
         vrd_max = self.__punching_shear()[0]
         if vrd_max > punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 \
-                exceeds the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 exceeds the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
         elif vrd_max < punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 \
-                is less than the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 is less than the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+        return {
+            "design_punching_shear_stress": punching_shear_stress,
+            "maximum_punching_shear_resistance": vrd_max,
+            "status": status,
+        }
 
     def col_1_punching_shear_check_1d(self):
         """
@@ -2857,13 +2977,8 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             design_punching_shear_force = (
                 column_axial_load
                 + (
-                    (
-                        (
-                            fdn_loads_ult
-                            / self.CombinedFootingAnalysis.area_of_foundation()
-                        )
-                        - ult_pressure_punching_shear
-                    )
+                    (fdn_loads_ult / self.CombinedFootingAnalysis.area_of_foundation())
+                    - ult_pressure_punching_shear
                 )
                 * area
             )
@@ -2944,11 +3059,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                     beta = self.beta
                 ved_design = ved * beta
             if self.__punching_shear()[2] > ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2\
-                    exceeds the design punching shear stress of {round(area,3)}N/mm\u00b2 - PASS!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
             elif self.__punching_shear()[2] < ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2\
-                    is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            return {
+                "punching_shear_stress": round(self.__punching_shear()[2], 3),
+                "ved_design": ved_design,
+                "status": status,
+            }
 
     def col_1_punching_shear_check_2d(self):
         """
@@ -3051,13 +3169,8 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             design_punching_shear_force = (
                 column_axial_load
                 + (
-                    (
-                        (
-                            fdn_loads_ult
-                            / self.CombinedFootingAnalysis.area_of_foundation()
-                        )
-                        - ult_pressure_punching_shear
-                    )
+                    (fdn_loads_ult / self.CombinedFootingAnalysis.area_of_foundation())
+                    - ult_pressure_punching_shear
                 )
                 * area
             )
@@ -3138,11 +3251,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                     beta = self.beta
                 ved_design = ved * beta
             if self.__punching_shear()[1] > ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 \
-                    exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
             elif self.__punching_shear()[1] < ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 \
-            is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            return {
+                "design_punching_shear_stress": ved_design,
+                "shear_resistance_max": self.__punching_shear()[1],
+                "status": status,
+            }
 
     def col_2_punching_shear_column_face(self):
         """
@@ -3177,11 +3293,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         )
         vrd_max = self.__punching_shear()[0]
         if vrd_max > punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 exceeds the design\
-                punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 exceeds the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - PASS!!!"
         elif vrd_max < punching_shear_stress:
-            return f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 is less than the \
-                design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+            status = f"The maximum punching shear resistance of {round(vrd_max,3)}N/mm\u00b2 is less than the design punching shear stress of {round(punching_shear_stress,3)}N/mm\u00b2 - FAIL!!!"
+        return {
+            "design_punching_shear_stress": punching_shear_stress,
+            "maximum_punching_shear_resistance": vrd_max,
+            "status": status,
+        }
 
     def col_2_punching_shear_check_1d(self):
         """
@@ -3284,13 +3403,8 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             design_punching_shear_force = (
                 column_axial_load
                 + (
-                    (
-                        (
-                            fdn_loads_ult
-                            / self.CombinedFootingAnalysis.area_of_foundation()
-                        )
-                        - ult_pressure_punching_shear
-                    )
+                    (fdn_loads_ult / self.CombinedFootingAnalysis.area_of_foundation())
+                    - ult_pressure_punching_shear
                 )
                 * area
             )
@@ -3371,11 +3485,14 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                     beta = self.beta
                 ved_design = ved * beta
             if self.__punching_shear()[2] > ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 \
-                    exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
             elif self.__punching_shear()[2] < ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 \
-                    is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[2],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            return {
+                "punching_shear_stress": round(self.__punching_shear()[2], 3),
+                "ved_design": ved_design,
+                "status": status,
+            }
 
     def col_2_punching_shear_check_2d(self):
         """
@@ -3478,13 +3595,8 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             design_punching_shear_force = (
                 column_axial_load
                 + (
-                    (
-                        (
-                            fdn_loads_ult
-                            / self.CombinedFootingAnalysis.area_of_foundation()
-                        )
-                        - ult_pressure_punching_shear
-                    )
+                    (fdn_loads_ult / self.CombinedFootingAnalysis.area_of_foundation())
+                    - ult_pressure_punching_shear
                 )
                 * area
             )
@@ -3565,8 +3677,11 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                     beta = self.beta
                 ved_design = ved * beta
             if self.__punching_shear()[1] > ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2\
-                    exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 exceeds the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - PASS!!!"
             elif self.__punching_shear()[1] < ved_design:
-                return f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 \
-            is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+                status = f"The maximum punching shear resistance of {round(self.__punching_shear()[1],3)}N/mm\u00b2 is less than the design punching shear stress of {round(ved_design,3)}N/mm\u00b2 - FAIL!!!"
+            return {
+                "design_punching_shear_stress": ved_design,
+                "shear_resistance_max": self.__punching_shear()[1],
+                "status": status,
+            }
