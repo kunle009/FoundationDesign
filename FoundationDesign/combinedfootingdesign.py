@@ -702,7 +702,7 @@ class CombinedFootingAnalysis:
         concrete_unit_weight : float, optional
             The default unit weight of the concrete is 24kN/mm^3 (default unit kN/mm^3).
         consider_self_weight : Bool, optional
-            If True self weight would be added if False self weight wont be considered
+            If True, self weight would be added if False, self weight wont be considered
 
         Returns
         -------
