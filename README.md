@@ -9,7 +9,7 @@
 [![Documentation Status](https://readthedocs.org/projects/foundationdesign/badge/?version=latest)](https://foundationdesign.readthedocs.io/en/latest/?badge=latest)
 [![Webapp](https://img.shields.io/website?url=https%3A%2F%2Ffoundationcalcs.com)](https://foundationcalcs.com)
 
-🚀 **Exciting Update**: The [FoundationCalcs](https://foundationcalcs.com) website is now live for beta testing! The platform allows you design foundations and download comprehensive pdf report. You can access the platform [here](https://foundationcalcs.com) and start interacting with this library via a web UI. Your feedback is important to improve the core library and the web platform.
+🚀 **Exciting Update**: The [FoundationCalcs](https://foundationcalcs.com) website is now live for beta testing! The platform allows you design foundations and download comprehensive pdf report. You can access the pad foundation calculator [here](https://foundationcalcs.com/pad_foundation_calculator) and start interacting with this library via a web UI. Your feedback is important to improve the core library and the web platform.
 
 ---
 
