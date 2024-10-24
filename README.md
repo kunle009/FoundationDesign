@@ -7,6 +7,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/FoundationDesign)
 [![build & test](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/kunle009/FoundationDesign/actions/workflows/build-and-test.yml)
 [![Documentation Status](https://readthedocs.org/projects/foundationdesign/badge/?version=latest)](https://foundationdesign.readthedocs.io/en/latest/?badge=latest)
+[![Code style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/format.json)](https://github.com/charliermarsh/ruff)
 [![Webapp](https://img.shields.io/website?url=https%3A%2F%2Ffoundationcalcs.com)](https://foundationcalcs.com)
 
 🚀 **Exciting Update**: The [FoundationCalcs](https://foundationcalcs.com) website is now live for beta testing! The platform allows you design foundations and download comprehensive pdf report. You can access the pad foundation calculator [here](https://foundationcalcs.com/pad_foundation_calculator) and start interacting with this library via a web UI. Your feedback is important to improve the core library and the web platform.
