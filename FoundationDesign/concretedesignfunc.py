@@ -75,15 +75,19 @@ def bending_reinforcement(
     float
         Area of steel required in mm2
     """
+    compression_status = None
     depth = depth * 1000
     k = (m * 10**6) / (fck * length * (depth**2.0))
     if k > 0.167:
-        print("Compression Reinforcement required, design out of scope")
+        compression_status = "Compression Reinforcement required, design out of scope"
     la = 0.5 + math.sqrt(0.25 - (0.882 * k))
     if la >= 0.95:
         la = 0.95
     area_of_steel = (m * 10**6) / (0.87 * fyk * la * depth)
-    return round(area_of_steel, 0)
+    return {
+        "area_of_steel": round(area_of_steel),
+        "compression_status": compression_status,
+    }
 
 
 def minimum_steel(fck: float, fyk: float, bt: float, d: float):

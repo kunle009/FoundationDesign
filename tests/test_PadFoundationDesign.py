@@ -45,8 +45,8 @@ class PadFoundationDesignTestCase(unittest.TestCase):
 
     def test_reinforcement_calculations(self):
         pad_foundation_design = self.pad_foundation_design
-        self.assertEqual(pad_foundation_design.area_of_steel_reqd_X_dir(), 958)
-        self.assertEqual(pad_foundation_design.area_of_steel_reqd_Y_dir(), 747)
+        self.assertEqual(pad_foundation_design.area_of_steel_reqd_X_dir()['area_required_per_m'], 958)
+        self.assertEqual(pad_foundation_design.area_of_steel_reqd_Y_dir()['area_required_per_m'], 747)
         self.assertDictEqual(
             pad_foundation_design.reinforcement_provision_flexure_X_dir(),
             {

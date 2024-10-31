@@ -1586,6 +1586,9 @@ class padFoundationDesign(PadFoundation):
         area_of_steel_required_calc = bending_reinforcement(
             Med, self.dx, self.fck, self.fyk, self.PadFoundation.foundation_width * 1000
         )
+        compression_status = area_of_steel_required_calc["compression_status"]
+        area_of_steel_required_calc = area_of_steel_required_calc["area_of_steel"]
+
         area_of_steel_required = max(
             area_of_steel_required_calc,
             minimum_steel(
@@ -1595,7 +1598,10 @@ class padFoundationDesign(PadFoundation):
         area_required_per_m = (
             area_of_steel_required / self.PadFoundation.foundation_width
         )
-        return round(area_required_per_m)
+        return {
+            "area_required_per_m": round(area_required_per_m),
+            "compression_status": compression_status,
+        }
 
     def __reinforcement_calculations_X_dir(self):
         """
@@ -1609,7 +1615,7 @@ class padFoundationDesign(PadFoundation):
         # In developing the web front end version of this code there would be a combobox that includes the bar diameters and equivalent reinforcement
         # spacing this would give power to the user to enable the user chose the steel that he founds appropriate tp satisfy the reinforcement requirement
         # but for now i have coded a function to automatically select area of reinforcement based on the area of steel required initially calculated
-        as_required = self.area_of_steel_reqd_X_dir()
+        as_required = self.area_of_steel_reqd_X_dir()["area_required_per_m"]
         result = reinforcement_provision(as_required, self.fyk)
         return result
 
@@ -1658,6 +1664,7 @@ class padFoundationDesign(PadFoundation):
             area of steel required in the y direction. (default unit mm2/m)
         """
         Med = self.get_design_moment_Y()
+        
         area_of_steel_required_calc = bending_reinforcement(
             Med,
             self.dy,
@@ -1665,6 +1672,8 @@ class padFoundationDesign(PadFoundation):
             self.fyk,
             self.PadFoundation.foundation_length * 1000,
         )
+        compression_status = area_of_steel_required_calc["compression_status"]
+        area_of_steel_required_calc = area_of_steel_required_calc["area_of_steel"]
         area_of_steel_required = max(
             area_of_steel_required_calc,
             minimum_steel(
@@ -1674,7 +1683,10 @@ class padFoundationDesign(PadFoundation):
         area_required_per_m = (
             area_of_steel_required / self.PadFoundation.foundation_length
         )
-        return round(area_required_per_m)
+        return {
+            "area_required_per_m": round(area_required_per_m),
+            "compression_status": compression_status,
+        }
 
     def __reinforcement_calculations_Y_dir(self):
         """
@@ -1688,7 +1700,7 @@ class padFoundationDesign(PadFoundation):
         # In developing the web front end version of this code there would be a combobox that includes the bar diameters and equivalent reinforcement
         # spacing this would give power to the user to enable the user chose the steel that he founds appropriate tp satisfy the reinforcement requirement
         # but for now i have coded a function to automatically select area of reinforcement based on the area of steel required initially calculated
-        as_required = self.area_of_steel_reqd_Y_dir()
+        as_required = self.area_of_steel_reqd_Y_dir()["area_required_per_m"]
         result = reinforcement_provision(as_required, self.fyk)
         return result
 
@@ -2259,8 +2271,8 @@ class padFoundationDesign(PadFoundation):
 
 if __name__ == "__main__":
     fdn = PadFoundation(
-        foundation_length=2500,
-        foundation_width=2500,
+        foundation_length=2400,
+        foundation_width=2400,
         column_length=400,
         column_width=400,
         col_pos_xdir=1250,
@@ -2273,10 +2285,12 @@ if __name__ == "__main__":
         soil_unit_weight=18,
         concrete_unit_weight=24,
     )
-    fdn.bearing_pressure_check_sls()
+    fdn.column_axial_loads(10000, 3000, 2300)
+    print(fdn.bearing_pressure_check_sls())
     fdn_design = padFoundationDesign(
         fdn, fck=30, fyk=500, concrete_cover=40, bar_diameterX=16, bar_diameterY=16
     )
+    print(fdn_design.area_of_steel_reqd_X_dir())
     # print(fdn_design.reinforcement_provision_flexure_X_dir())
     # fdn_design.sliding_resistance_check()
     # fdn_design.plot_foundation_loading_Y(show_plot=False)

@@ -2475,6 +2475,9 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                 self.fyk,
                 self.CombinedFootingAnalysis.foundation_width * 1000,
             )
+            compression_status = area_of_steel_required_calc["compression_status"]
+            area_of_steel_required_calc = area_of_steel_required_calc["area_of_steel"]
+
             area_of_steel_required = max(
                 area_of_steel_required_calc,
                 minimum_steel(
@@ -2487,7 +2490,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             area_required_per_m[i] = (
                 area_of_steel_required / self.CombinedFootingAnalysis.foundation_width
             )
-        return area_required_per_m.round(2)
+        return {
+            "area_required_per_m": area_required_per_m.round(2),
+            "compression_status": compression_status,
+        }
 
     def __reinforcement_calculations_X_dir(self):
         """
@@ -2506,7 +2512,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         # appropriate tp satisfy the reinforcement requirement
         # but for now i have coded a function to automatically select area of reinforcement based on
         # the area of steel required initially calculated
-        as_required = np.array(self.area_of_steel_reqd_X_dir())
+        as_required = np.array(self.area_of_steel_reqd_X_dir()["area_required_per_m"])
         result = []
         for i in range(0, 2, 1):
             result.append(reinforcement_provision(as_required[i], self.fyk))
@@ -2607,6 +2613,8 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                 self.fyk,
                 self.CombinedFootingAnalysis.foundation_length * 1000,
             )
+            compression_status = area_of_steel_required_calc["compression_status"]
+            area_of_steel_required_calc = area_of_steel_required_calc["area_of_steel"]
             area_of_steel_required = max(
                 area_of_steel_required_calc,
                 minimum_steel(
@@ -2619,7 +2627,10 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
             area_required_per_m[i] = (
                 area_of_steel_required / self.CombinedFootingAnalysis.foundation_length
             )
-        return area_required_per_m.round(2)
+        return {
+            "area_required_per_m": area_required_per_m.round(2),
+            "compression_status": compression_status,
+        }
 
     def __reinforcement_calculations_Y_dir(self):
         """
@@ -2635,8 +2646,7 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
         # spacing this would give power to the user to enable the user chose
         # the steel that he founds appropriate tp satisfy the reinforcement requirement
         # but for now i have coded a function to automatically select area
-        # of reinforcement based on the area of steel required initially calculated
-        as_required = np.array(self.area_of_steel_reqd_Y_dir())
+        as_required = np.array(self.area_of_steel_reqd_Y_dir()["area_required_per_m"])
         result = []
         for i in range(0, 2, 1):
             result.append(reinforcement_provision(as_required[i], self.fyk))
@@ -3685,3 +3695,46 @@ class CombinedFootingDesign(CombinedFootingAnalysis):
                 "shear_resistance_max": self.__punching_shear()[1],
                 "status": status,
             }
+
+
+if __name__ == "__main__":
+    comb_footing = CombinedFootingAnalysis(
+        foundation_length=4600,
+        foundation_width=2300,
+        soil_bearing_capacity=300,
+        spacing_btwn_columns=3000,
+    )
+    comb_footing.update_column_1_geometry(
+        column_length=300, column_width=300, col_pos_xdir=540, col_pos_ydir=1145
+    )
+    comb_footing.update_column_2_geometry(
+        column_length=400, column_width=400, col_pos_xdir=3540, col_pos_ydir=1145
+    )
+    # Updating column 1 loads
+    comb_footing.update_column_1_axial_loads(
+        permanent_axial_load=1000, imposed_axial_load=200
+    )
+    # Updating column 2 loads
+    comb_footing.update_column_2_axial_loads(
+        permanent_axial_load=1400, imposed_axial_load=300
+    )
+    # Update foundation loads
+    comb_footing.foundation_loads(
+        foundation_thickness=850,
+        soil_depth_abv_foundation=0,
+        soil_unit_weight=18,
+        concrete_unit_weight=24,
+        consider_self_weight=False,
+    )
+    comb_footing_design = CombinedFootingDesign(
+        comb_footing,
+        fck=30,
+        fyk=500,
+        concrete_cover=30,
+        bar_diameterX=16,
+        bar_diameterY=16,
+    )
+    print(comb_footing_design.area_of_steel_reqd_X_dir())
+    print(comb_footing_design.area_of_steel_reqd_Y_dir())
+    print(comb_footing_design.reinforcement_prov_flexure_X_dir_TOP())
+    print(comb_footing_design.reinforcement_prov_flexure_X_dir_Bottom())
