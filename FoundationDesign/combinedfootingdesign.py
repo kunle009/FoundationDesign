@@ -142,8 +142,6 @@ class CombinedFootingAnalysis:
         self.column_1_horizontal_loads_ydir = [0, 0, 0]
         self.column_1_moments_xdir = [0, 0, 0]
         self.column_1_moments_ydir = [0, 0, 0]
-        self.column_1_geometry = []
-        self.column_2_geometry = []
         self.column_2_axial_loads = [0, 0, 0]
         self.column_2_horizontal_loads_xdir = [0, 0, 0]
         self.column_2_horizontal_loads_ydir = [0, 0, 0]
@@ -671,7 +669,7 @@ class CombinedFootingAnalysis:
         assert_number(imposed_moment_ydir, "Imposed moments in Y direction")
         assert_number(wind_moments_ydir, "Wind moments in Y direction")
 
-        self.column_1_moments_ydir.clear()
+        self.column_2_moments_ydir.clear()
         self.column_2_moments_ydir.extend(
             (permanent_moment_ydir, imposed_moment_ydir, wind_moments_ydir)
         )
@@ -3718,6 +3716,12 @@ if __name__ == "__main__":
     comb_footing.update_column_2_axial_loads(
         permanent_axial_load=1400, imposed_axial_load=300
     )
+    #print(comb_footing.total_moments_Y_direction_sls())
+    #comb_footing.update_column_1_moments_ydir(0,0,0)
+    #comb_footing.update_column_1_moments_xdir(0,0,0)
+    #comb_footing.update_column_2_moments_xdir(0,0,0)
+    #comb_footing.update_column_2_moments_ydir(0,0,0)
+    #print(comb_footing.pad_base_pressures_sls())
     # Update foundation loads
     comb_footing.foundation_loads(
         foundation_thickness=850,
