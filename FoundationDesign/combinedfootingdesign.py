@@ -3738,7 +3738,9 @@ if __name__ == "__main__":
         bar_diameterX=16,
         bar_diameterY=16,
     )
-    print(comb_footing_design.area_of_steel_reqd_X_dir())
-    print(comb_footing_design.area_of_steel_reqd_Y_dir())
-    print(comb_footing_design.reinforcement_prov_flexure_X_dir_TOP())
-    print(comb_footing_design.reinforcement_prov_flexure_X_dir_Bottom())
+    #print(comb_footing_design.area_of_steel_reqd_X_dir())
+    #print(comb_footing_design.area_of_steel_reqd_Y_dir())
+    #print(comb_footing_design.reinforcement_prov_flexure_X_dir_TOP())
+    #print(comb_footing_design.reinforcement_prov_flexure_X_dir_Bottom())
+    print(comb_footing.pad_base_pressures_sls())
+
