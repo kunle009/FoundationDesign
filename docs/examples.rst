@@ -22,5 +22,5 @@ In order to effectively use the package online you should first run the cell tha
 
 You can also approach the problems using the web-based graphical user interface |website|
 
-.. |website| image:: https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=green&up_message=up&url=https%3A%2F%2Findeterminate-beam.herokuapp.com%2F
-   :target: https://foundationcalcs.com/
+.. image:: https://img.shields.io/website?url=https%3A%2F%2Fwww.foundationcalcs.com%2F
+   :alt: Website
