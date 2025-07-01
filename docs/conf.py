@@ -15,7 +15,7 @@ import sphinx_rtd_theme
 project = "FoundationDesign"
 copyright = "2024, Kunle Yusuf"
 author = "Kunle Yusuf"
-release = "0.0.7"
+release = "0.1.2"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
