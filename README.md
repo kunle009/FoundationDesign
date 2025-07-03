@@ -33,7 +33,7 @@ alongside python packages like numpy,plotly,scipy and IndeterminateBeam package.
 examples are contained in the examples folder.
 The full package documentation can be accessed [here](http://foundationdesign.readthedocs.io/).
 
-Text-based examples of the package presented in the [documentation](http://foundationdesign.readthedocs.io/en/latest/examples.html) includes [Concentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Concentric_Footing_Example.ipynb), [Eccentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Eccentric_Footing_Example.ipynb) and a [Combined Footing Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Combined_Footing_Mosley_bungey.ipynb). A web-based graphical user interface (GUI) is currently in development.
+Text-based examples of the package presented in the [documentation](http://foundationdesign.readthedocs.io/en/latest/examples.html) includes [Concentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Concentric_Footing_Example.ipynb), [Eccentric Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Eccentric_Footing_Example.ipynb) and a [Combined Footing Pad Foundation](https://colab.research.google.com/github/kunle009/FoundationDesign/blob/main/examples/Combined_Footing_Mosley_bungey.ipynb). A web-based graphical user interface (GUI) can be accessed at [FoundationCalcs](https://foundationcalcs.com).
 
 ## Project Purpose
 
