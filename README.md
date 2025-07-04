@@ -155,7 +155,8 @@ The guidelines for contributing are specified [here](https://github.com/kunle009
 
 The guidelines for support are specified [here](https://github.com/kunle009/Foundationdesign/blob/main/SUPPORT.md).
 
-
 ## License
 
 [![PyPI - License](https://img.shields.io/pypi/l/FoundationDesign)](https://github.com/kunle009/FoundationDesign/blob/main/LICENSE)
+
+Copyright (c) 2022, Kunle Yusuf
