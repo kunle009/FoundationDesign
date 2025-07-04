@@ -17,7 +17,7 @@
 FoundationDesign is a python module to be used for the design and analysis
 of different foundation types in accordance to the Eurocode 2.
 This project is an attempt to have a free standalone python package that can
-be used to analyse and design foundations with results as good as paid softwares.
+be used to analyse and design foundations with results as good as paid software's.
 This module will be useful in determining:
 
 - The critical bending moments in the foundation
@@ -146,3 +146,16 @@ The following are areas that will be implemented in future:
 - [ ] Strip Footing Design (Eurocode 2)
 - [ ] Strap Footing Design (Eurocode 2)
 - [ ] API Support
+
+## Contributing
+
+The guidelines for contributing are specified [here](https://github.com/kunle009/Foundationdesign/blob/main/CONTRIBUTING.md).
+
+## Support
+
+The guidelines for support are specified [here](https://github.com/kunle009/Foundationdesign/blob/main/SUPPORT.md).
+
+
+## License
+
+[![PyPI - License](https://img.shields.io/pypi/l/FoundationDesign)](https://github.com/kunle009/FoundationDesign/blob/main/LICENSE)
