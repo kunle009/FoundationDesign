@@ -100,8 +100,8 @@ fdn = PadFoundation(
 
 ### Defining Loads
 
-Different types of loads are supported by `FoundationDesign` including `column_axial_loads`, `column_horizontal_loads_xdir`, `column_horizontal_loads_xdir`, `column_moments_xdir` and `column_moments_ydir.
-These loads can be defined under three load cases `permanent`, `imposed`and`wind`. With their accurate sign convention contained in the [documentation](https://foundationdesign.readthedocs.io/en/latest/docstrings.html)
+`FoundationDesign` supports different types of loading scenarios in both x and y direction. This includes `column_axial_loads`, `column_horizontal_loads_xdir`, `column_horizontal_loads_xdir`, `column_moments_xdir` and `column_moments_ydir`.
+These loads can be defined under three load cases `permanent` ,`imposed`and`wind`. With their accurate sign convention contained in the [documentation](https://foundationdesign.readthedocs.io/en/latest/docstrings.html)
 
 ```Python
 # Define the column axial loads with dead load of 800kN and imposed load of 300kN
