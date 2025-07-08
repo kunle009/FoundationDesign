@@ -9,13 +9,13 @@ tags:
   - civil engineering
   - Python
 authors:
-  - name: Abdulbaasit Olakunle Yusuf
+  - name: Kunle Yusuf
     orcid: 0009-0009-2339-267X
     affiliation: 1
 affiliations:
   - name: No affiliation
     index: 1
-date: 03 July 2025
+date: 08 July 2025
 bibliography: paper.bib
 nocite: |
   @Bonanno2021, @harris2020array
