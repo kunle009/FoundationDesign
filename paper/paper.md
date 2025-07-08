@@ -151,7 +151,7 @@ fdn_design.sliding_resistance_check()['status']
 
 ### Plotting results
 
-Lot's of results can be investigated by plotting different results from the `PadFoundation` and `padFoundationDesign` objects. The plots are generated using the `[@plotly]` library. Various other plots can be generated to visualise the foundation geometry, base pressures, loading diagrams, bending moment diagrams, and shear force diagrams. The following code snippet demonstrates how to generate some of these plots:
+Lot's of results can be investigated by plotting different results from the [PadFoundation] and `padFoundationDesign` objects. The plots are generated using the [@plotly] library. Various other plots can be generated to visualise the foundation geometry, base pressures, loading diagrams, bending moment diagrams, and shear force diagrams. The following code snippet demonstrates how to generate some of these plots:
 
 ```Python
 # Plot the bending moment diagram in x direction
