@@ -9,7 +9,7 @@ tags:
   - civil engineering
   - Python
 authors:
-  - name: Kunle Yusuf
+  - name: Abdulbaasit Olakunle Yusuf
     orcid: 0009-0009-2339-267X
     affiliation: 1
 affiliations:
@@ -85,7 +85,8 @@ The creation of a `PadFoundation` instance involves the input of the foundation 
 
 ```Python
 from FoundationDesign import PadFoundation,padFoundationDesign
-# Create a foundation with an initial size of 2.5m by 2.5m, supporting a 400mm x 400mm column carrying a dead load of 800kN and imposed load of 300kN
+# Create a foundation with an initial size of 2.5m by 2.5m, 
+# supporting a 400mm x 400mm column carrying a dead load of 800kN and imposed load of 300kN
 # The soil bearing capacity is 200kN/m2.
 fdn = PadFoundation(
     foundation_length=2500,
