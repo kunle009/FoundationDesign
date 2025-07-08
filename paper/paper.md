@@ -34,7 +34,7 @@ be used to analyse and design foundations with results as good as paid software'
 - Reinforcement provisions
 - Punching shear checks etc
 
-The project is based mainly on instructions contained in the [@en1992] and common engineering textbooks such as [@arya2000design], [@bhatt2014reinforced] and [@mosley1982reinforced]
+The project is based mainly on instructions contained in the [@en1992] and common engineering textbooks such as [@arya2009design], [@bhatt2014reinforced] and [@mosley1982reinforced]
 
 The package can be used by:
 
