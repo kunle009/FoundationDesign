@@ -163,6 +163,6 @@ fdn_design.plot_shear_force_X()
 This outputs the bending moment plot with the design bending moment shown at the face of the column.
 ![Foundation Bending Moment in X direction](https://github.com/kunle009/FoundationDesign/blob/main/assets/bending_moment1.png)
 The shear force plot is also displayed with critical shear force showing at 1d from column the face.
-![Foundation Shear Force in X direction](https://github.com/kunle009/FoundationDesign/blob/main/assets/shear_force.jpg)
+![Foundation Shear Force in X direction](https://github.com/kunle009/FoundationDesign/blob/main/assets/shear_force.png)
 
 # References
