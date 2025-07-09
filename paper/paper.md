@@ -1,5 +1,5 @@
 ---
-title: "FoundationDesign: A Python module for structural analysis and design of different foundation type in accordance to the Eurocodes and the UK National Annex"
+title: "FoundationDesign: A Python library for structural analysis and design of different foundation type in accordance to the Eurocodes and the UK National Annex"
 tags:
   - foundation design
   - foundation analysis
